@@ -10,7 +10,6 @@
     <a href="javascript:;">每日科普</a>
     <a href="javascript:;">有偿资讯</a>
     <a href="javascript:;">孕期营养攻略</a>
-    <a href="javascript:;">haha</a>
     </div>
   </div>
   <div class="container">
