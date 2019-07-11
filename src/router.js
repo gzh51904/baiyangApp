@@ -10,10 +10,14 @@ import Login from './views/Login.vue'; //登录
 import List from './views/List.vue'; //列表
 import Detail from './views/Detail.vue'; //详情页
 
-import pinpai from './components/categroy/pinpai.vue'; //品牌页
-import baike from './components/categroy/baike.vue'; //百科页
-import weishengsu from './components/categroy/weishengsu.vue'; //维生素页
-import shencai from './components/categroy/shencai.vue'; //身材页
+import PinPaiQiang from './components/categroy/PinPaiQiang.vue';//品牌墙
+import XiaoBaiKe from './components/categroy/XiaoBaiKe.vue';//小百科
+import WeiShengSu from './components/categroy/WeiShengSu.vue';//维生素
+import LianShenCai from './components/categroy/LianShenCai.vue';//练身材
+import YangShengJi from './components/categroy/YangShengJi.vue';//养生记
+import DaYaoFang from './components/categroy/DaYaoFang.vue';//大药房
+import MeiYanShu from './components/categroy/MeiYanShu.vue';//美颜术
+import YuErJing from './components/categroy/YuErJing.vue';//育儿经
 
 
 Vue.use(Router)
@@ -37,21 +41,37 @@ export default new Router({
       component: Categroy,
 
       children: [{
-        name: 'pinpai',
-        path: 'pinpai',
-        component: pinpai
+        name: 'pinpaiqiang',
+        path: '',
+        component: PinPaiQiang
       }, {
-        name: 'baike',
-        path: 'baike',
-        component: baike
+        name: 'xiaobaike',
+        path: 'xiaobaike',
+        component: XiaoBaiKe
       }, {
         name: 'weishengsu',
         path: 'weishengsu',
-        component: weishengsu
+        component: WeiShengSu
       }, {
-        name: 'shencai',
-        path: 'shencai',
-        component: shencai
+        name: 'lianshencai',
+        path: 'lianshencai',
+        component: LianShenCai
+      },{
+        name: 'yangshengji',
+        path: 'yangshengji',
+        component: YangShengJi
+      },{
+        name: 'dayaofang',
+        path: 'dayaofang',
+        component: DaYaoFang
+      },{
+        name: 'meiyanshu',
+        path: 'meiyanshu',
+        component: MeiYanShu
+      },{
+        name: 'yuerjing',
+        path: 'yuerjing',
+        component: YuErJing
       }]
     },
     {

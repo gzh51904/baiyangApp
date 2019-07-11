@@ -16,10 +16,10 @@ export default {};
 .head {
   //   position: fixed;
   //   left: 0;
-  //   top: 0;
-  position: fixed;
-  top: 0;
-  left: 0;
+  //   top: 0
+  // position: fixed;
+  // top: 0;
+  // left: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
