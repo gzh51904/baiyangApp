@@ -70,7 +70,7 @@ export default {
   methods: {
     changeNavItem(index) {
       this.now = index;
-      var url = "";
+      // var url = "";
       if (index == 0) {
         this.$router.push({
           path: "/categroy"
