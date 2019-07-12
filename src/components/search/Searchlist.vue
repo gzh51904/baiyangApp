@@ -1,16 +1,61 @@
 <template>
   <div class="nctouch-main-layout mb-20" id="search_tip_list_container" style>
     <ul class="nctouch-default-list">
-      <li>
-        <a href="https://m.baiyangwang.com/tmpl/product_list.html?keyword=%E6%98%AF%E4%BB%A5">是以</a>
-      </li>
-
-      <li>
-        <a href="https://m.baiyangwang.com/tmpl/product_list.html?keyword=%E6%98%AF%E4%BB%8E">是从</a>
+      <li v-for="(item,index) in list" :key="index">
+        <a href="#">{{item.name}}</a>
       </li>
     </ul>
   </div>
 </template>
+
+<script>
+import bus from "../../eventVue";
+export default {
+  data() {
+    return {
+      goodsList: [
+        //假数据
+        { name: "三星Galaxy Note8", price: 5200, sales: 2.6 },
+        { name: "iphone5s", price: 2500, sales: 2.2 },
+        { name: "iphone6", price: 2800, sales: 1.6 },
+        { name: "iphone6s", price: 3200, sales: 2.9 },
+        { name: "iphone7", price: 3800, sales: 12.6 },
+        { name: "iphone7plus", price: 4200, sales: 2.1 },
+        { name: "iphone8", price: 5500, sales: 10.6 },
+        { name: "华为", price: 4600, sales: 7.6 },
+        { name: "小米", price: 1200, sales: 32.6 },
+        { name: "OPPOR11", price: 3000, sales: 1.2 },
+        { name: "vivoX20", price: 3250, sales: 2.9 }
+      ],
+      list:[
+
+      ]
+    };
+  },
+
+  mounted() {
+    
+    bus.$on("msg", e => {
+      console.log("接受值", e);
+      var arrByZM = [];//声明一个空数组来存放数据
+      for (var i = 0; i < this.goodsList.length; i++) {
+        //for循环数据中的每一项（根据name值）
+        if (this.goodsList[i].name.search(e) != -1) {
+          //判断输入框中的值是否可以匹配到数据，如果匹配成功
+          arrByZM.push(this.goodsList[i]);
+          //向空数组中添加数据
+          console.log(arrByZM);
+        } 
+      }
+       //一定要记得返回筛选后的数据
+        this.list=arrByZM.slice(0,3);
+    });
+    
+
+  }
+};
+</script>
+
 
 <style lang="scss" scoped>
 .nctouch-main-layout {
