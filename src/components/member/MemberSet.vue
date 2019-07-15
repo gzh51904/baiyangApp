@@ -14,7 +14,7 @@ export default {
       if (sUserName) {
         //用户已经登录
         this.$router.push({
-          path: "/member/set"
+          path: "/member/setting"
         });
       } else {
         // 用户未登录

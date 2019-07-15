@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import Router from 'vue-router'
 import Home from './views/Home.vue'; //商城
 import Search from './views/Search.vue'; //搜索
@@ -9,8 +10,18 @@ import Login from './views/Login.vue'; //登录
 import LoginPwd from './views/LoginPwd.vue';
 import List from './views/List.vue'; //列表
 import Detail from './views/Detail.vue'; //详情页
-import Setting from './components/member/Setting.vue';//设置页
-import Order from './components/member/Order.vue';//订单页
+import Setting from './components/member/Setting.vue'; //设置页
+import Order from './components/member/Order.vue'; //订单页
+
+import PinPaiQiang from "./components/categroy/PinPaiQiang.vue"; //品牌墙
+import XiaoBaiKe from "./components/categroy/XiaoBaiKe.vue"; //小百科
+import WeiShengSu from "./components/categroy/WeiShengSu.vue"; //维生素
+import LianShenCai from "./components/categroy/LianShenCai.vue"; //练身材
+import YangShengJi from "./components/categroy/YangShengJi.vue"; //养生记
+import DaYaoFang from "./components/categroy/DaYaoFang.vue"; //大药房
+import MeiYanShu from "./components/categroy/MeiYanShu.vue"; //美颜术
+import YuErJing from "./components/categroy/YuErJing.vue"; //育儿经
+
 
 import axios from "axios";
 
@@ -20,8 +31,7 @@ Vue.use(Router);
 export default new Router({
   mode: "history",
   base: process.env.BASE_URL,
-  routes: [
-    {
+  routes: [{
       path: "/",
       name: "home",
       component: Home
@@ -36,8 +46,7 @@ export default new Router({
       name: "categroy",
       component: Categroy,
 
-      children: [
-        {
+      children: [{
           name: "pinpaiqiang",
           path: "",
           component: PinPaiQiang
@@ -88,7 +97,9 @@ export default new Router({
       path: "/cart",
       name: "cart",
       component: Cart,
-      meta: { requiresAuth: true }
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/member",
@@ -97,12 +108,12 @@ export default new Router({
     },
     {
       name: "setting",
-      path: "setting",
+      path: "/member/setting",
       component: Setting
     },
     {
       name: "order",
-      path: "order",
+      path: "/member/order",
       component: Order
     },
     {

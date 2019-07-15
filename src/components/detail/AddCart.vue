@@ -1,6 +1,6 @@
 <template>
   <div class="add_cart_box">
-    <input type="button" value="存储用户信息" @click="saveUserInfos()">
+    <!-- <input type="button" value="存储用户信息" @click="saveUserInfos()"> -->
     <div class="left">
       <a href="javascript:;" class="kefu">
         <i class="iconfont icon-kefu"></i>
@@ -62,29 +62,29 @@ export default {
       if (!sUserName && !sCart) {
         console.log("用户未登录，cart对象不存在");
         // 创建cart对象，将数据存储到该对象，然后存储到本地
-        var aCart = [];
-        aCart.push(oGoods);
-        localStorage.setItem("cart", JSON.stringify(aCart)); //将数组转为字符串，存储到本地
+        var aCart1 = [];
+        aCart1.push(oGoods);
+        localStorage.setItem("cart", JSON.stringify(aCart1)); //将数组转为字符串，存储到本地
         return;
       }
 
       // 2.用户未登录，cart对象存在：判断cart对象中是否存在该产品，有就修改数量，无直接添加记录
       if (!sUserName && sCart) {
         console.log("用户未登录，cart对象存在");
-        var aCart = JSON.parse(sCart); //将字符串转为数组
+        var aCart2 = JSON.parse(sCart); //将字符串转为数组
 
         // 遍历本地存储cart数组，判断是否有该商品，有就直接修改商品数量，无就直接添加记录
-        for (var i = 0; i < aCart.length; i++) {
-          if (aCart[i].goods_id == oGoods.goods_id) {
+        for (var i = 0; i < aCart2.length; i++) {
+          if (aCart2[i].goods_id == oGoods.goods_id) {
             // 对象中存在该商品 直接修改数量 并存储
             console.log("cart对象中有该商品");
-            aCart[i].num += 1; //数量加1
-            localStorage.setItem("cart", JSON.stringify(aCart)); //将数组转为字符串，存储到本地
+            aCart2[i].num += 1; //数量加1
+            localStorage.setItem("cart", JSON.stringify(aCart2)); //将数组转为字符串，存储到本地
           } else {
             // 对象中不存在该商品 往数组中添加商品信息 并存储
             console.log("cart对象中无该商品");
-            aCart.push(oGoods);
-            localStorage.setItem("cart", JSON.stringify(aCart)); //将数组转为字符串，存储到本地
+            aCart2.push(oGoods);
+            localStorage.setItem("cart", JSON.stringify(aCart2)); //将数组转为字符串，存储到本地
           }
         }
         return;
@@ -103,21 +103,21 @@ export default {
       if (sUserName && sCart) {
         console.log("用户登录，cart对象存在");
         // 将本地存储cart对象转为数组
-        var aCart = JSON.parse(sCart);
+        var aCart3 = JSON.parse(sCart);
         //遍历数组，看是否有该商品，有就修改数量，无就直接添加记录
-        for (var i = 0; i < aCart.length; i++) {
-          if (aCart[i].goods_id == oGoods.goods_id) {
+        for (var i = 0; i < aCart3.length; i++) {
+          if (aCart3[i].goods_id == oGoods.goods_id) {
             console.log("cart对象中有该商品");
-            aCart[i].num += 1;
+            aCart3[i].num += 1;
           } else {
             console.log("cart对象无该商品");
-            aCart.push(oGoods);
+            aCart3.push(oGoods);
           }
         }
         // 将数据存储到数据库
-        for (var i = 0; i < aCart.length; i++) {
-          aCart[i].username = sUserName;
-          await this.$axios.post("http://127.0.0.1:1904/cart", aCart[i]);
+        for (var i = 0; i < aCart3.length; i++) {
+          aCart3[i].username = sUserName;
+          await this.$axios.post("http://127.0.0.1:1904/cart", aCart3[i]);
         }
         // 清空本地存储中cart对象
         localStorage.removeItem("cart");
