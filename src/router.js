@@ -15,7 +15,7 @@ import Order from './components/member/Order.vue';//订单页
 import axios from "axios";
 
 Vue.use(Router);
->>>>>>> 985f60df946cff1a414cc5ce35b110848db81a8b
+
 
 export default new Router({
   mode: "history",
