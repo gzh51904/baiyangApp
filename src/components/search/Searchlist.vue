@@ -2,7 +2,7 @@
   <div class="nctouch-main-layout mb-20" id="search_tip_list_container" style>
     <ul class="nctouch-default-list">
       <li v-for="(item,index) in list" :key="index">
-        <a href="#">{{item.name}}</a>
+        <a href="#" @click="golist">{{item}}</a>
       </li>
     </ul>
   </div>
@@ -27,31 +27,48 @@ export default {
         { name: "OPPOR11", price: 3000, sales: 1.2 },
         { name: "vivoX20", price: 3250, sales: 2.9 }
       ],
-      list:[
-
-      ]
+      list: []
     };
+  },
+  methods:{
+    golist(){
+        this.$router.push({name:'list'});    
+    }
+  },
+  async created() {
+    let goodlist = await this.$axios.get("http://localhost:1904/goods");
+    // console.log(goodlist.data.data);
+    // console.log(this.goodsList);
+    let list = [];
+    for (var i = 0; i < goodlist.data.data.length; i++) {
+      // console.log(goodlist.data.data[i].name);
+
+      list.push(goodlist.data.data[i].name);
+      // console.log(list);
+    }
+    this.goodsList = list;
+    // console.log(this.goodsList);
   },
 
   mounted() {
-    
     bus.$on("msg", e => {
-      console.log("接受值", e);
-      var arrByZM = [];//声明一个空数组来存放数据
+      console.log("接受值", e, this.goodsList[0]);
+      var arrByZM = []; //声明一个空数组来存放数据
       for (var i = 0; i < this.goodsList.length; i++) {
         //for循环数据中的每一项（根据name值）
-        if (this.goodsList[i].name.search(e) != -1) {
+        if (this.goodsList[i].search(e) != -1) {
           //判断输入框中的值是否可以匹配到数据，如果匹配成功
           arrByZM.push(this.goodsList[i]);
           //向空数组中添加数据
-          console.log(arrByZM);
-        } 
+          // console.log(arrByZM);
+        }
       }
-       //一定要记得返回筛选后的数据
-        this.list=arrByZM.slice(0,3);
-    });
-    
+      // console.log(arrByZM);
+      //一定要记得返回筛选后的数据
+      this.list = arrByZM.slice(0, 3);
+      // console.log(this.list[0]);
 
+    });
   }
 };
 </script>

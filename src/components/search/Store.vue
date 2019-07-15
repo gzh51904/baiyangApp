@@ -89,7 +89,7 @@
 <style lang="scss" scoped>
 #store-wrapper {
   .nctouch-search-layout {
-    padding-top: 0.02rem;
+    padding-top: 0.72rem;
     dl {
       padding: 0.6rem 0.3rem 0.3rem;
       text-align: left;
