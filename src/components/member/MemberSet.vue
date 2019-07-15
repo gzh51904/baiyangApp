@@ -1,12 +1,21 @@
 <template>
   <header class="member_set">
     <p class="set_btn">
-      <i class="iconfont icon-setting"></i>
+      <i class="iconfont icon-setting" v-on:click="tianzhuan()"></i>
     </p>
   </header>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    tianzhuan: function() {
+      this.$router.push({ name: "setting" });
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

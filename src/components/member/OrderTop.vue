@@ -3,7 +3,7 @@
         <div class="title">
             <a href="javascript:;">
                 <h3>我的订单</h3>
-                <h5>查看全部&gt;</h5>
+                <h5 v-on:click="tianzhuan()">查看全部&gt;</h5>
             </a>
         </div>
         <div class="order1">
@@ -43,7 +43,16 @@
     </div>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    tianzhuan: function() {
+      this.$router.push({ name: "order" });
+    }
+  }
+};
 </script>
 <style lang="scss" scoped>
 .order_top {

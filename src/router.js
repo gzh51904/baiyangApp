@@ -1,119 +1,139 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from './views/Home.vue'; //商城
-import Search from './views/Search.vue'; //搜索
-import Categroy from './views/Categroy.vue'; //分类
-import Find from './views/Find.vue'; //发现
-import Cart from './views/Cart.vue'; //购物车
-import Member from './views/Member.vue'; //我的
-import Login from './views/Login.vue'; //登录
-import LoginPwd from './views/LoginPwd.vue'; //登录
-import List from './views/List.vue'; //列表
-import Detail from './views/Detail.vue'; //详情页
+import Vue from "vue";
+import Router from "vue-router";
+import Home from "./views/Home.vue"; //商城
+import Search from "./views/Search.vue"; //搜索
+import Categroy from "./views/Categroy.vue"; //分类
+import Find from "./views/Find.vue"; //发现
+import Cart from "./views/Cart.vue"; //购物车
+import Member from "./views/Member.vue"; //我的
+import Login from "./views/Login.vue"; //登录
+import LoginPwd from "./views/LoginPwd.vue"; //登录
+import List from "./views/List.vue"; //列表
+import Detail from "./views/Detail.vue"; //详情页
 
-import PinPaiQiang from './components/categroy/PinPaiQiang.vue';//品牌墙
-import XiaoBaiKe from './components/categroy/XiaoBaiKe.vue';//小百科
-import WeiShengSu from './components/categroy/WeiShengSu.vue';//维生素
-import LianShenCai from './components/categroy/LianShenCai.vue';//练身材
-import YangShengJi from './components/categroy/YangShengJi.vue';//养生记
-import DaYaoFang from './components/categroy/DaYaoFang.vue';//大药房
-import MeiYanShu from './components/categroy/MeiYanShu.vue';//美颜术
-import YuErJing from './components/categroy/YuErJing.vue';//育儿经
+import PinPaiQiang from "./components/categroy/PinPaiQiang.vue"; //品牌墙
+import XiaoBaiKe from "./components/categroy/XiaoBaiKe.vue"; //小百科
+import WeiShengSu from "./components/categroy/WeiShengSu.vue"; //维生素
+import LianShenCai from "./components/categroy/LianShenCai.vue"; //练身材
+import YangShengJi from "./components/categroy/YangShengJi.vue"; //养生记
+import DaYaoFang from "./components/categroy/DaYaoFang.vue"; //大药房
+import MeiYanShu from "./components/categroy/MeiYanShu.vue"; //美颜术
+import YuErJing from "./components/categroy/YuErJing.vue"; //育儿经
+import Setting from "./components/member/Setting.vue"; //设置页
+import Order from "./components/member/Order.vue"; //订单页
 
-import axios from 'axios';
+import axios from "axios";
 
-
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes: [{
-      path: '/',
-      name: 'home',
+  routes: [
+    {
+      path: "/",
+      name: "home",
       component: Home
     },
     {
-      path: '/search',
-      name: 'search',
+      path: "/search",
+      name: "search",
       component: Search
     },
     {
-      path: '/categroy',
-      name: 'categroy',
+      path: "/categroy",
+      name: "categroy",
       component: Categroy,
 
-      children: [{
-        name: 'pinpaiqiang',
-        path: '',
-        component: PinPaiQiang
-      }, {
-        name: 'xiaobaike',
-        path: 'xiaobaike',
-        component: XiaoBaiKe
-      }, {
-        name: 'weishengsu',
-        path: 'weishengsu',
-        component: WeiShengSu
-      }, {
-        name: 'lianshencai',
-        path: 'lianshencai',
-        component: LianShenCai
-      },{
-        name: 'yangshengji',
-        path: 'yangshengji',
-        component: YangShengJi
-      },{
-        name: 'dayaofang',
-        path: 'dayaofang',
-        component: DaYaoFang
-      },{
-        name: 'meiyanshu',
-        path: 'meiyanshu',
-        component: MeiYanShu
-      },{
-        name: 'yuerjing',
-        path: 'yuerjing',
-        component: YuErJing
-      }]
+      children: [
+        {
+          name: "pinpaiqiang",
+          path: "",
+          component: PinPaiQiang
+        },
+        {
+          name: "xiaobaike",
+          path: "xiaobaike",
+          component: XiaoBaiKe
+        },
+        {
+          name: "weishengsu",
+          path: "weishengsu",
+          component: WeiShengSu
+        },
+        {
+          name: "lianshencai",
+          path: "lianshencai",
+          component: LianShenCai
+        },
+        {
+          name: "yangshengji",
+          path: "yangshengji",
+          component: YangShengJi
+        },
+        {
+          name: "dayaofang",
+          path: "dayaofang",
+          component: DaYaoFang
+        },
+        {
+          name: "meiyanshu",
+          path: "meiyanshu",
+          component: MeiYanShu
+        },
+        {
+          name: "yuerjing",
+          path: "yuerjing",
+          component: YuErJing
+        }
+      ]
     },
     {
-      path: '/find',
-      name: 'find',
+      path: "/find",
+      name: "find",
       component: Find
     },
     {
-      path: '/cart',
-      name: 'cart',
+      path: "/cart",
+      name: "cart",
       component: Cart,
       meta: { requiresAuth: true }
     },
     {
-      path: '/member',
-      name: 'member',
+      path: "/member",
+      name: "member",
       component: Member
     },
     {
-      path: '/login',
-      name: 'login',
+      name: "setting",
+      path: "setting",
+      component: Setting
+    },
+    {
+      name: "order",
+      path: "order",
+      component: Order
+    },
+    {
+      path: "/login",
+      name: "login",
       component: Login
-    },{
-      path: '/login_pwd',
-      name: 'login_pwd',
+    },
+    {
+      path: "/login_pwd",
+      name: "login_pwd",
       component: LoginPwd
     },
     {
-      path: '/list',
-      name: 'list',
+      path: "/list",
+      name: "list",
       component: List
     },
     {
-      path: '/detail',
-      name: 'detail',
+      path: "/detail",
+      name: "detail",
       component: Detail
-    },
-
-
+    }
 
     // {
     //   path: '/about',
@@ -124,9 +144,7 @@ export default new Router({
     //   component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     // }
   ]
-
-  
-})
+});
 
 // Router.beforeEach((to,from,next)=>{
 //   console.log('全局：beforeEach',to);

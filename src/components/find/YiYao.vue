@@ -1,7 +1,7 @@
 <template>
     <div class="container" >
     <div class="c_left" >
-       <div class="victim1" v-if="loading" v-for="(tab,idx) of goodsLeft" :key="idx" >
+       <div class="victim1" v-if="loading" v-for="(tab,idx) of goodsLeft" :key="idx" @click="changTab(tab.id)" >
          <img src="../../static/img/yao7.jpg" alt="" >
          <h3>{{goodsLeft[idx].name}}</h3>
          <p>{{goodsLeft[idx].branch}}</p>
@@ -21,7 +21,7 @@
        </div> -->
     </div>
     <div class="c_right">
-      <div class="victim1" v-if="loading" v-for="(tab,idx) of goodsRight" :key="idx">
+      <div class="victim1" v-if="loading" v-for="(tab,idx) of goodsRight" :key="idx" @click="changTab(tab.id)">
          <img src="../../static/img/yao2.jpg" alt="">
          <h3>{{goodsLeft[idx].name }}</h3>
          <p>{{goodsRight[idx].branch}}</p>
@@ -53,6 +53,12 @@ export default {
       goodsImgLeft: [],
       goodsImgRight: []
     };
+  },
+  methods: {
+    changTab: function(id) {
+      this.$router.push({ name: "detail", query: { goods_id: id } });
+      console.log(id);
+    }
   },
   async created() {
     const datas = await this.$axios.get("http://127.0.0.1:1904/find/大药房");

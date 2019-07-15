@@ -1,7 +1,7 @@
 <template>
     <div class="container" >
     <div class="c_left" >
-       <div class="victim1" v-if="loading" v-for="(tab,idx) of goodsLeft" :key="idx" @click="changTab()" >
+       <div class="victim1" v-if="loading" v-for="(tab,idx) of goodsLeft" :key="idx" @click="changTab(tab.id)" >
          <img src="../../assets/img/faxian1.jpg" alt="" >
          <h3>{{goodsLeft[idx].name}}</h3>
          <p>{{goodsLeft[idx].branch}}</p>
@@ -21,7 +21,7 @@
        </div> -->
     </div>
     <div class="c_right">
-      <div class="victim1" v-if="loading" v-for="(tab,idx) of goodsRight" :key="idx">
+      <div class="victim1" v-if="loading" v-for="(tab,idx) of goodsRight" :key="idx" @click="changTab(tab.id)">
          <img src="../../assets/img/faxian3.jpg" alt="">
          <h3>{{goodsLeft[idx].name }}</h3>
          <p>{{goodsRight[idx].branch}}</p>
@@ -55,8 +55,9 @@ export default {
     };
   },
   methods: {
-    changTab: function() {
-      this.$router.push({ name: "detail" });
+    changTab: function(id) {
+      this.$router.push({ name: "detail", query: { goods_id: id } });
+      console.log(id);
     }
   },
   async created() {
@@ -68,7 +69,7 @@ export default {
     this.goodsImgLeft = this.goodsLeft.map(function(item) {
       return item.img_url.split(";")[0];
     });
-    console.log(this.goodsImgLeft);
+    console.log(this.goodsLeft);
   }
 };
 </script>
