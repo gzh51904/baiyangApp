@@ -69,11 +69,11 @@ export default {
                 }else if(data.code === 1000){
 
                     // 保存登录信息
-                    localStorage.setItem('Authorization',data.data);
+                    localStorage.setItem('username',data.data);
 
                     // 获取目标路径
                     // let targetPath = this.$route.query.redirectTo;
-                    // this.$router.push("/")
+                    this.$router.push("/")
                     // this.$router.replace(targetPath?targetPath:'/home')
                 }
             })

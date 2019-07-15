@@ -10,7 +10,7 @@
                     <a href="javascript:;" class="get_sms_ver_code_btn">获取验证码</a>
                 </li>
             </ul>
-            <a href="javascript:;" class="login_btn" @click="submitForm('pho')">登录</a>
+            <a href="javascript:;" class="login_btn" @click="submitForm('pho')">注册</a>
             <div class="login_ways">
                 <a href="javascript:;" @click="jumpPage('/login_pwd')">使用密码登录</a>
             </div>
@@ -79,6 +79,7 @@ export default {
             }).then((res)=>{
               if(res){
                 alert('注册成功')
+                this.$router.push('/login_pwd')
               }
             })
         }else{
@@ -87,7 +88,7 @@ export default {
          
     },
     jumpPage(url) {
-      this.$router.push('login_pwd');
+      this.$router.push('/login_pwd');
     }
   }
 };
