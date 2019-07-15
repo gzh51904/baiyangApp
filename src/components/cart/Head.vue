@@ -2,13 +2,33 @@
   <header class="cart_head">
     <p class="title">购物车</p>
     <div class="edit">
-      <a href="javascripti:;">编辑</a>
+      <a href="javascripti:;" v-text="operation" @click="edit()"></a>
     </div>
 
   </header>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      isEdit: true
+    };
+  },
+  computed: {
+    operation() {
+      if (this.isEdit) {
+        return "编辑";
+      } else {
+        return "完成";
+      }
+    }
+  },
+  methods: {
+    async edit() {
+      this.isEdit = !this.isEdit;
+    }
+  }
+};
 </script>
 <style lang="scss" scoped>
 .cart_head {

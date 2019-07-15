@@ -1,6 +1,6 @@
 <template>
   <nav class="categroy_nav">
-    <li class="nav_item" v-for="(item,index) in NavItems" :key="item.id" :class="now===index?'active':''" @click="changeNavItem(index)">
+    <li class="nav_item" v-for="(item,index) in NavItems" :key="item.id" :class="now===index?'active':''" @click="changeNavItem(index,item.path)">
       <a href="javascript:;">
         <span class="cn" v-text="item.cn"></span>
         <span class="en" v-text="item.en"></span>
@@ -19,106 +19,61 @@ export default {
           id: 0,
           cn: "品牌墙",
           en: "BRANDS WALL",
-          path: "/pinpai"
+          path: "/"
         },
         {
           id: 1,
-          cn: "品牌墙",
-          en: "BRANDS WALL",
-          path: "/pinpai"
+          cn: "小儿科",
+          en: "Encyclopedia",
+          path: "/xiaobaike"
         },
         {
           id: 2,
-          cn: "品牌墙",
-          en: "BRANDS WALL",
-          path: "/pinpai"
+          cn: "维生素",
+          en: "Vitamins",
+          path: "/weishengsu"
         },
         {
           id: 3,
-          cn: "品牌墙",
-          en: "BRANDS WALL",
-          path: "/pinpai"
+          cn: "练身材",
+          en: "BODYBUILDING",
+          path: "/lianshencai"
         },
         {
           id: 4,
-          cn: "品牌墙",
-          en: "BRANDS WALL",
-          path: "/pinpai"
+          cn: "养生计",
+          en: "HEALTHCARE",
+          path: "/yangshengji"
         },
         {
           id: 5,
-          cn: "品牌墙",
-          en: "BRANDS WALL",
-          path: "/pinpai"
+          cn: "大药房",
+          en: "PHARMACY",
+          path: "/dayaofang"
         },
         {
           id: 6,
-          cn: "品牌墙",
-          en: "BRANDS WALL",
-          path: "/pinpai"
+          cn: "美颜术",
+          en: "SKINCARE",
+          path: "/meiyanshu"
         },
         {
           id: 7,
-          cn: "品牌墙",
-          en: "BRANDS WALL",
-          path: "/pinpai"
+          cn: "育儿经",
+          en: "CHILDCARE",
+          path: "/yuerjing"
         }
       ],
       now: 0
     };
   },
   methods: {
-    changeNavItem(index) {
+    changeNavItem(index, url) {
       this.now = index;
-      // var url = "";
-      if (index == 0) {
-        this.$router.push({
-          path: "/categroy"
-        });
-        return;
-      }
-      if (index == 1) {
-        this.$router.push({
-          path: "/categroy/xiaobaike"
-        });
-        return;
-      }
-      if (index == 2) {
-        this.$router.push({
-          path: "/categroy/weishengsu"
-        });
-        return;
-      }
-      if (index == 3) {
-        this.$router.push({
-          path: "/categroy/lianshencai"
-        });
-        return;
-      }
-      if (index == 4) {
-        this.$router.push({
-          path: "/categroy/yangshengji"
-        });
-        return;
-      }
-      if (index == 5) {
-        this.$router.push({
-          path: "/categroy/dayaofang"
-        });
-        return;
-      }
-      if (index == 6) {
-        this.$router.push({
-          path: "/categroy/meiyanshu"
-        });
-        return;
-      }
-      if (index == 7) {
-        this.$router.push({
-          path: "/categroy/yuerjing"
-        });
-        return;
-      }
+      const baseUrl = "/categroy";
+      this.$router.push({
+        path: baseUrl + url
+      });
     }
   },
   created() {}

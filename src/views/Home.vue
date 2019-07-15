@@ -1,5 +1,6 @@
 <template>
   <div id="home">
+    <!-- <input type="button" name="" id="" value="跳转到详情页" @click="jumpDetail(1)"> -->
     <!-- 头部 -->
     <app-head></app-head>
     <!-- 轮播图 -->
@@ -31,6 +32,11 @@ import Healthy from "../components/home/Healthy.vue";
 import HotTopic from "../components/home/HotTopic.vue";
 import End from "../components/home/End.vue";
 export default {
+  data() {
+    return {
+      dataList: []
+    };
+  },
   components: {
     "app-head": Head,
     slideshow: Slideshow,
@@ -38,10 +44,39 @@ export default {
     "goods-special": Special,
     welfare: Welfare,
     "limit-time-purchase": LimitTimePurchase,
-    healthy:Healthy,
-    "hot-topic":HotTopic,
-    end:End
+    healthy: Healthy,
+    "hot-topic": HotTopic,
+    end: End
+  },
+  methods: {
+    jumpDetail(idx) {
+      this.$router.push({
+        path: "/detail",
+        query: {
+          goods_id: idx
+        }
+      });
+    }
+  },
+  async created() {
+    // const datas = await this.$axios("http://127.0.0.1:1904/goods?id=123");
+    // const datas = await this.$axios.post("http://127.0.0.1:1904/cart",{
+    //   username:'ganliyun1',
+    //   goods_id:'1',
+    //   goods_name:'迪巧',
+    //   goods_img:'pin1.png',
+    //   price:1233,
+    //   num:12333,
+    // });
+    // console.log(datas.data.data);
+    // const datas = await this.$axios.get("http://127.0.0.1:1904/cart/ganliyun2");
+    // console.log(datas);
+    // this.dataList.push(datas.data.data[2]);
+    // console.log(this.dataList);
+    // var
+    // var a = ''
   }
+  // var obj="";
 };
 </script>
 <style lang="scss" scoped>

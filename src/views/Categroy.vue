@@ -3,7 +3,9 @@
     <categroy-head></categroy-head>
     <main class="main">
       <categroy-nav></categroy-nav>
-      <router-view></router-view>
+      <div class="content">
+        <router-view></router-view>
+      </div>
     </main>
   </div>
 </template>
@@ -32,7 +34,11 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     padding-bottom: 1.333333rem;
-   
+    .content {
+      flex: 1;
+      height: 100%;
+      overflow-y: scroll;
+    }
   }
 }
 </style>

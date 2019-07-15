@@ -1,12 +1,30 @@
 <template>
   <header class="member_set">
-    <p class="set_btn">
+    <p class="set_btn" @click="jumpToSetPage()">
       <i class="iconfont icon-setting"></i>
     </p>
   </header>
 </template>
 <script>
-export default {};
+export default {
+  methods: {
+    jumpToSetPage() {
+      var sUserName = localStorage.getItem("username");
+      //
+      if (sUserName) {
+        //用户已经登录
+        this.$router.push({
+          path: "/member/set"
+        });
+      } else {
+        // 用户未登录
+        this.$router.push({
+          path: "/login"
+        });
+      }
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

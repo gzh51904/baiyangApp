@@ -7,8 +7,11 @@ import Find from './views/Find.vue'; //发现
 import Cart from './views/Cart.vue'; //购物车
 import Member from './views/Member.vue'; //我的
 import Login from './views/Login.vue'; //登录
+import LoginPwd from './views/LoginPwd.vue';
 import List from './views/List.vue'; //列表
 import Detail from './views/Detail.vue'; //详情页
+import Setting from './components/member/Setting.vue';//设置页
+import Order from './components/member/Order.vue';//订单页
 
 import PinPaiQiang from './components/categroy/PinPaiQiang.vue';//品牌墙
 import XiaoBaiKe from './components/categroy/XiaoBaiKe.vue';//小百科
@@ -18,7 +21,6 @@ import YangShengJi from './components/categroy/YangShengJi.vue';//养生记
 import DaYaoFang from './components/categroy/DaYaoFang.vue';//大药房
 import MeiYanShu from './components/categroy/MeiYanShu.vue';//美颜术
 import YuErJing from './components/categroy/YuErJing.vue';//育儿经
-
 
 Vue.use(Router)
 
@@ -87,12 +89,27 @@ export default new Router({
     {
       path: '/member',
       name: 'member',
-      component: Member
+      component: Member,
+      children: [{
+        name: 'setting',
+        path: 'setting',
+        component: Setting
+      }, {
+        name: 'order',
+        path: 'order',
+        component: Order
+
+      }]
     },
     {
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path:'/login_pwd',
+      name:'login_pwd',
+      component:LoginPwd
     },
     {
       path: '/list',

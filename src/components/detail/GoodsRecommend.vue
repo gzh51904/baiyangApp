@@ -5,7 +5,7 @@
                 <a href="javascript:;">相关推荐</a>
             </li>
             <li class="item">
-                <a href="javascript:;">同乐类销推荐</a>
+                <a href="javascript:;">同类型热销推荐</a>
             </li>
         </nav>
         <same-type-goods></same-type-goods>
