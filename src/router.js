@@ -7,6 +7,7 @@ import Find from './views/Find.vue'; //发现
 import Cart from './views/Cart.vue'; //购物车
 import Member from './views/Member.vue'; //我的
 import Login from './views/Login.vue'; //登录
+import LoginPwd from './views/LoginPwd.vue'; //登录
 import List from './views/List.vue'; //列表
 import Detail from './views/Detail.vue'; //详情页
 
@@ -18,6 +19,8 @@ import YangShengJi from './components/categroy/YangShengJi.vue';//养生记
 import DaYaoFang from './components/categroy/DaYaoFang.vue';//大药房
 import MeiYanShu from './components/categroy/MeiYanShu.vue';//美颜术
 import YuErJing from './components/categroy/YuErJing.vue';//育儿经
+
+import axios from 'axios';
 
 
 Vue.use(Router)
@@ -82,7 +85,8 @@ export default new Router({
     {
       path: '/cart',
       name: 'cart',
-      component: Cart
+      component: Cart,
+      meta: { requiresAuth: true }
     },
     {
       path: '/member',
@@ -93,6 +97,10 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },{
+      path: '/login_pwd',
+      name: 'login_pwd',
+      component: LoginPwd
     },
     {
       path: '/list',
@@ -105,6 +113,8 @@ export default new Router({
       component: Detail
     },
 
+
+
     // {
     //   path: '/about',
     //   name: 'about',
@@ -114,4 +124,31 @@ export default new Router({
     //   component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     // }
   ]
+
+  
 })
+
+// Router.beforeEach((to,from,next)=>{
+//   console.log('全局：beforeEach',to);
+//   // 判断目标路由是否需要登录权限才可访问
+//   if(to.matched.some(item=>item.meta.requiresAuth)){
+//       let token = localStorage.getItem('Authorization');
+//       axios.get('/verify')
+//       // 用户已登录
+//       if(token){
+//           next();
+//       }
+
+//       // 用户未登录
+//       else{
+//           next({
+//               path:'/login',
+//               query:{
+//                   redirectTo:to.fullPath
+//               }
+//           })
+//       }
+//   }else{
+//       next();
+//   }
+// })

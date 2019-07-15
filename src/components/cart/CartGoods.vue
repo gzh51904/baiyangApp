@@ -1,131 +1,104 @@
 <template>
-    <div class="cart_goods">
+       <div class="cart_goods">
         <ul class="goods_list">
-            <li class="list_item">
+            <li class="list_item" v-for="item in datalist" :key="item.id">
                 <div class="title">
                     <input type="checkbox" checked class="check_btn">
                     <i class="iconfont icon-dianpu shop_icon"></i>
-                    <a href="javascript:;" class="shop_name">百洋健康官方自营店&nbsp;&gt;</a>
+                    <a href="javascript:;" class="shop_name" >{{ item.id}} &nbsp;&gt;</a>
                 </div>
                 <div class="goods">
                     <input type="checkbox" checked class="check_btn">
                     <div class="goods_pic">
                         <a href="javascript:;">
-                            <img src="https://shopncstaticimage.baiyangwang.com/shop/store/goods/1/1_05930981421749142.jpg" alt="#">
+                            <img src="{img_url}" alt="#">
                         </a>
                     </div>
                     <div class="goods_infos">
                         <h2 class="goods_name">
                             <a href="javascript:;">
-                                【西班牙原装进口】维莎特级无添加初榨橄榄油500ml装
+                                {{item.name}}
                             </a>
                         </h2>
                         <div class="goods_price_num">
-                            <p class="goods_price">￥3444</p>
+                            <p class="goods_price" prop="price">￥{{item.cur_price}} </p>
                             <div class="goods_num">
-                                <a href="javascript:;" class="reduce_btn">-</a>
-                                <input type="text" class="num" value="3">
-                                <a href="javascript:;" class="add_btn">+</a>
+                                
+                                <template>
+                                      <el-input-number size="mini" v-model="qty" ></el-input-number>
+                                </template>
+                               
+                                
                             </div>
                         </div>
                     </div>
 
                 </div>
             </li>
-            <li class="list_item">
-                <div class="title">
-                    <input type="checkbox" checked class="check_btn">
-                    <i class="iconfont icon-dianpu shop_icon"></i>
-                    <a href="javascript:;" class="shop_name">百洋健康官方自营店&nbsp;&gt;</a>
-                </div>
-                <div class="goods">
-                    <input type="checkbox" checked class="check_btn">
-                    <div class="goods_pic">
-                        <a href="javascript:;">
-                            <img src="https://shopncstaticimage.baiyangwang.com/shop/store/goods/1/1_05930981421749142.jpg" alt="#">
-                        </a>
-                    </div>
-                    <div class="goods_infos">
-                        <h2 class="goods_name">
-                            <a href="javascript:;">
-                                【西班牙原装进口】维莎特级无添加初榨橄榄油500ml装
-                            </a>
-                        </h2>
-                        <div class="goods_price_num">
-                            <p class="goods_price">￥3344</p>
-                            <div class="goods_num">
-                                <a href="javascript:;" class="reduce_btn">-</a>
-                                <input type="text" class="num">
-                                <a href="javascript:;" class="add_btn">+</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="list_item">
-                <div class="title">
-                    <input type="checkbox" checked class="check_btn">
-                    <i class="iconfont icon-dianpu shop_icon"></i>
-                    <a href="javascript:;" class="shop_name">百洋健康官方自营店&nbsp;&gt;</a>
-                </div>
-                <div class="goods">
-                    <input type="checkbox" checked class="check_btn">
-                    <div class="goods_pic">
-                        <a href="javascript:;">
-                            <img src="https://shopncstaticimage.baiyangwang.com/shop/store/goods/1/1_05930981421749142.jpg" alt="#">
-                        </a>
-                    </div>
-                    <div class="goods_infos">
-                        <h2 class="goods_name">
-                            <a href="javascript:;">
-                                【西班牙原装进口】维莎特级无添加初榨橄榄油500ml装
-                            </a>
-                        </h2>
-                        <div class="goods_price_num">
-                            <p class="goods_price">￥3344</p>
-                            <div class="goods_num">
-                                <a href="javascript:;" class="reduce_btn">-</a>
-                                <input type="text" class="num">
-                                <a href="javascript:;" class="add_btn">+</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="list_item">
-                <div class="title">
-                    <input type="checkbox" checked class="check_btn">
-                    <i class="iconfont icon-dianpu shop_icon"></i>
-                    <a href="javascript:;" class="shop_name">百洋健康官方自营店&nbsp;&gt;</a>
-                </div>
-                <div class="goods">
-                    <input type="checkbox" checked class="check_btn">
-                    <div class="goods_pic">
-                        <a href="javascript:;">
-                            <img src="https://shopncstaticimage.baiyangwang.com/shop/store/goods/1/1_05930981421749142.jpg" alt="#">
-                        </a>
-                    </div>
-                    <div class="goods_infos">
-                        <h2 class="goods_name">
-                            <a href="javascript:;">
-                                【西班牙原装进口】维莎特级无添加初榨橄榄油500ml装
-                            </a>
-                        </h2>
-                        <div class="goods_price_num">
-                            <p class="goods_price">￥3344</p>
-                            <div class="goods_num">
-                                <a href="javascript:;" class="reduce_btn">-</a>
-                                <input type="text" class="num">
-                                <a href="javascript:;" class="add_btn">+</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
+            
         </ul>
-    </div>
+     </div>
 </template>
+
+
+
+
+<script>
+
+import Vue from 'vue';
+import {mapState,mapMutations} from 'vuex';
+import {InputNumber} from 'element-ui';
+
+Vue.use(InputNumber)
+
+
+
+
+export default {
+  data(){
+    return{
+      datalist:[],
+      qty:1,
+    }
+  },
+  computed: {
+   
+    totalPrice(){
+        return this.$store.state.cart.goodslist.reduce((pre,item)=>{
+            return pre + item.price*item.qty
+        },0)
+    }
+  },
+  methods:{
+      // changeQty(id, qty ) {
+        
+      //      let  data  = await this.$axios.get("http://localhost:1904/goods",{body:{
+             
+      //           num:50
+      //      }});
+      //   },
+  },
+  async created() {
+    console.log("Cart:", this);
+   
+    let  data  = await this.$axios.get("http://localhost:1904/goods/1");
+           
+    this.datalist = data.data.data;
+     let qty = data.data.data[0].num
+    this.qty = qty;
+    // console.log(this.datalist)
+    console.log("data:", data);
+
+
+    
+    console.log("qty:", qty);
+    
+  }
+};
+</script>
+
+
+
 <style lang="scss" scoped>
 .cart_goods {
   width: 100%;

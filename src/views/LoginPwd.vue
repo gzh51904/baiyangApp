@@ -1,5 +1,5 @@
 <template>
-    <section id="login">
+    <section id="login_pwd">
         <login-close></login-close>
         <login-logo></login-logo>
         <password-login></password-login>

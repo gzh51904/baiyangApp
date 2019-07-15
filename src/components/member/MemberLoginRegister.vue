@@ -6,7 +6,7 @@
                 <div class="member_pic">
                     <img src="../../assets/img/default_avatar.png" alt="#">
                 </div>
-                <p class="member_name">登录/注册</p>
+                <p class="member_name" @click=tiao()>登录/注册</p>
             </div>
             <div class="member_collect">
                 <ul class="member_collect_list">
@@ -40,7 +40,15 @@
     </section>
 </template>
 <script>
-export default {};
+export default {
+
+    methods:{
+      tiao(){
+        this.$router.push('./login')
+      }
+    }
+
+};
 </script>
 
 <style lang="scss" scoped>
