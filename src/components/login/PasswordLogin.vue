@@ -1,12 +1,12 @@
 <template>
     <div class="phone_login">
-        <form action="" class="login_form">
+        <form action="" class="login_form" :model="ruleForm"  ref="ruleForm">
             <ul class="login_infos">
-                <li class="infos_item phone">
-                    <input type="text" placeholder="请输入手机号">
+                <li class="infos_item phone" prop="phone">
+                    <input type="text" placeholder="请输入手机号" v-model="ruleForm.phone" v-bind:checked="checked" v-on:change="$emit('change', $event.target.checked)" >
                 </li>
-                <li class="infos_item psw">
-                    <input type="text" placeholder="请输入密码">
+                <li class="infos_item psw" prop="pwd">
+                    <input type="text" placeholder="请输入密码" v-model="ruleForm.pwd"> 
                 </li>
                 <li class="infos_item ver_code">
                     <input type="text" placeholder="请输入验证码">
@@ -15,7 +15,7 @@
                     </a>
                 </li>
             </ul>
-            <a href="javascript:;" class="login_btn">登录</a>
+            <a href="javascript:;" class="login_btn" @click="submitForm">登录</a>
             <div class="login_ways">
                 <a href="javascript:;">忘记密码</a>
                 <a href="javascript:;" @click="jumpPage('/login_pwd')">手机验证码登录</a>
@@ -26,6 +26,13 @@
 <script>
 import VerCode from "./VerCode.vue";
 export default {
+   model: {
+    prop: 'checked',
+    event: 'change'
+  },
+  props: {
+    checked: Boolean
+  },
   data() {
     return {
       identifyCodes: "1234567890",
@@ -33,17 +40,48 @@ export default {
       code: "", //text框输入的验证码
     //   contentWidth:'100%',
     //   contentHeight:'1.346667rem',
-
+      ruleForm: {
+        phone: "",
+        pwd: ""
+      },
+      
     };
   },
   components: {
     "ver-code": VerCode
   },
   methods: {
+   
+    submitForm() {
+      
+        
+            let {phone,pwd} = this.ruleForm;
+            this.$axios.get("http://localhost:1904/login",{
+                params:{
+                    phone,
+                    pwd
+                }
+            }).then((res)=>{
+                let {data,headers} = res
+                console.log(res);
+                if(data.code == 250){
+                    alert('用户名或密码错误！')
+                }else if(data.code === 1000){
+
+                    // 保存登录信息
+                    localStorage.setItem('username',data.data);
+
+                    // 获取目标路径
+                    // let targetPath = this.$route.query.redirectTo;
+                    this.$router.push("/")
+                    // this.$router.replace(targetPath?targetPath:'/home')
+                }
+            })
+        
+      ;
+    },
     jumpPage(url) {
-      this.$router.push({
-        path: url
-      });
+      this.$router.push('/login');
     },
     randomNum(min, max) {
       return Math.floor(Math.random() * (max - min) + min);
@@ -65,11 +103,15 @@ export default {
   mounted() {
     this.identifyCode = "";
     this.makeCode(this.identifyCodes, 4);
+    // this.ruleForm.username = ruleForm.username;
+    // console.log(this.ruleForm.username)
   },
   created() {
     this.refreshCode();
-  }
+    
+  },
   //验证码
+ 
 };
 </script>
 <style lang="scss" scoped>
