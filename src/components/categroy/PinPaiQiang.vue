@@ -37,7 +37,7 @@ export default {
     let lists = [];
     for (var i = 0; i < goodlist.data.data.length; i++) {
       // console.log(goodlist.data.data[i].name);
-      let imgurl = require("../../../public/api_img/" +
+      let imgurl = require("../../assets/img/" +
         goodlist.data.data[i].img_url
           .split(";")
           .slice(0, 1)
@@ -60,11 +60,7 @@ export default {
 <style lang="scss" scoped>
 .pinpaiqiang {
   padding-right: 0.306667rem;
-<<<<<<< HEAD
   padding-top: 0.4rem;
-=======
-  padding-top: .4rem;
->>>>>>> af544975da47cf2f8711922167b19e1ac72aa498
   width: 100%;
   height: 100%;
   overflow-y: scroll;
