@@ -11,36 +11,18 @@
                     </div>
                 </div>
                 <div class="show_all_goods">
-                    <a href="javascript:;">查看全部&gt;</a>
+                    <a href="javascript:;" @click="jumpPage()">查看全部&gt;</a>
                 </div>
             </div>
             <div class="goods">
                 <ul class="goods_list">
-                    <li class="list_item">
+                    <li class="list_item" v-for="item in goods" :key="item.id" @click="jumpDetailPage(item.id)">
                         <div class="goods_img">
-                            <img src="../../assets/img/limit1.jpg" alt="">
+                            <img :src="item.img_url" alt="#">
                         </div>
                         <div class="goods_price">
-                            <p class="current_price">￥355</p>
-                            <del class="origin_price">￥455</del>
-                        </div>
-                    </li>
-                    <li class="list_item">
-                        <div class="goods_img">
-                            <img src="../../assets/img/limit2.jpg" alt="">
-                        </div>
-                        <div class="goods_price">
-                            <p class="current_price">￥355</p>
-                            <del class="origin_price">￥455</del>
-                        </div>
-                    </li>
-                    <li class="list_item">
-                        <div class="goods_img">
-                            <img src="../../assets/img/limit3.jpg" alt="">
-                        </div>
-                        <div class="goods_price">
-                            <p class="current_price">￥35</p>
-                            <del class="origin_price">￥45</del>
+                            <p class="current_price">￥{{item.cur_price}}</p>
+                            <del class="origin_price">￥{{item.ori_price}}</del>
                         </div>
                     </li>
                 </ul>
@@ -48,6 +30,50 @@
         </div>
     </section>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      goods: [
+        {
+          id: 3,
+          img_url: require("../../assets/img/limit1.jpg"),
+          cur_price: 123,
+          ori_price: 455
+        },
+        {
+          id: 90,
+          img_url: require("../../assets/img/limit2.jpg"),
+          cur_price: 345,
+          ori_price: 455
+        },
+        {
+          id: 300,
+          img_url: require("../../assets/img/limit3.jpg"),
+          cur_price: 355,
+          ori_price: 389
+        }
+      ]
+    };
+  },
+  methods: {
+    jumpPage() {
+      this.$router.push({
+        path: "/limittimegoods"
+      });
+    },
+    jumpDetailPage(goods_id) {
+      this.$router.push({
+        path: "/detail",
+        query: {
+          goods_id: goods_id
+        }
+      });
+    }
+  }
+};
+</script>
+
 <style lang="scss" scoped>
 .home_limit_time_purchase {
   display: flex;

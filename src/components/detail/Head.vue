@@ -1,6 +1,6 @@
 <template>
   <div class="detail_head">
-    <div class="left">
+    <div class="left" @click="back()">
       <i class="iconfont icon-back"></i>
     </div>
     <div class="right">
@@ -9,6 +9,20 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  methods:{
+    back(){
+      console.log("1222");
+      this.$router.push('/');
+      // this.$router.push({
+      //   // path:'/'
+      // });
+    }
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 .detail_head {
   position: fixed;

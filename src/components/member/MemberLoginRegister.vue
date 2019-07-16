@@ -2,11 +2,11 @@
     <section class="member_login_register">
         <div class="member_login_register_inner">
             <img src="../../assets/img/topavater.png" alt="#">
-            <div class="member_infos">
+            <div class="member_infos" @click="jumpToLoginPage()">
                 <div class="member_pic">
                     <img src="../../assets/img/default_avatar.png" alt="#">
                 </div>
-                <p class="member_name">登录/注册</p>
+                <p class="member_name" v-text="username"></p>
             </div>
             <div class="member_collect">
                 <ul class="member_collect_list">
@@ -40,7 +40,33 @@
     </section>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      username: "",
+      isLogin: false
+    };
+  },
+  methods: {
+    jumpToLoginPage() {
+      if (!this.isLogin) {
+        this.$router.push({
+          path: "/login"
+        });
+      }
+    }
+  },
+  created() {
+    var sUserName = localStorage.getItem("username");
+    if (sUserName) {
+      this.username = sUserName;
+      this.isLogin = true;
+    } else {
+      this.username = "登录/注册";
+      this.isLogin = false;
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

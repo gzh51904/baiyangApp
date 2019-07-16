@@ -6,27 +6,25 @@
       <p class="line"></p>
     </div>
     <div class="goods_information_pic">
-      <img src="https://b2cstatic.baiyangwang.com/shop/store/goods/1/1_05887817574507445_1280.jpg" alt="#">
-      <img src="https://shopncstaticimage.baiyangwang.com/shop/store/goods/1/1_06095835429290260.jpg" alt="#">
-      <img src="https://b2cstatic.baiyangwang.com/shop/store/goods/1/1_05890386801197204_1280.jpg" alt="#">
-      <img src="https://shopncstaticimage.baiyangwang.com/shop/store/goods/1/1_06053575353633148.jpg!gthumb" alt="#">
-      <img src="https://b2cstatic.baiyangwang.com/shop/store/goods/1/1_05890386906284452_1280.jpg" alt="#">
-      <img src="https://b2cstatic.baiyangwang.com/shop/store/goods/1/1_05890386965303322_1280.jpg" alt="#">
-      <img src="https://b2cstatic.baiyangwang.com/shop/store/goods/1/1_05890387031589971_1280.jpg" alt="#">
-      <img src="https://b2cstatic.baiyangwang.com/shop/store/goods/1/1_05890387074547473_1280.jpg" alt="#">
-      <img src="https://b2cstatic.baiyangwang.com/shop/store/goods/1/1_05890387120213179_1280.jpg" alt="#">
-      <img src="https://b2cstatic.baiyangwang.com/shop/store/goods/1/1_05890387165454430_1280.jpg" alt="#">
-      <img src="https://b2cstatic.baiyangwang.com/shop/store/goods/1/1_06002723176023721_1280.jpg" alt="#">
-      <img src="https://b2cstatic.baiyangwang.com/shop/store/goods/1/1_05887817742971838_1280.jpg" alt="3">
-      <img src="https://shopncstaticimage.baiyangwang.com/shop/store/goods/1/1_06128882008316814.jpg" alt="#">
-      <img src="https://b2cstatic.baiyangwang.com/shop/store/goods/1/1_05887817842774584_1280.jpg" alt="#">
+      <div class="pic" v-for="(item,index) in goodsDesPics" :key="index">
+        <img :src="item" alt="#">
+      </div>
     </div>
   </div>
 </template>
+<script>
+export default {
+   props: {
+      goodsDesPics: {
+        type: Array,
+      }
+    },
+};
+</script>
+
 <style lang="scss" scoped>
 .graphic_details {
   padding: 0 0.266667rem;
-  // margin-bottom: 0.28rem;
   width: 100%;
   background: #fff;
   .title {

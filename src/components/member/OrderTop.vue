@@ -1,9 +1,9 @@
 <template>
     <div class="order_top">
         <div class="title">
-            <a href="javascript:;">
+            <a href="javascript:;" @click="jumpToOrderPage()">
                 <h3>我的订单</h3>
-                <h5>查看全部&gt;</h5>
+                <h5 v-on:click="tianzhuan()">查看全部&gt;</h5>
             </a>
         </div>
         <div class="order1">
@@ -43,7 +43,23 @@
     </div>
 </template>
 <script>
-export default {};
+export default {
+  methods: {
+    jumpToOrderPage() {
+      var sUserName = localStorage.getItem("username");
+      if (sUserName) {
+        // 用户已经登录
+        this.$router.push({
+          path: "/member/order"
+        });
+      }else{
+          this.$router.push({
+              path:"login"
+          });
+      }
+    }
+  }
+};
 </script>
 <style lang="scss" scoped>
 .order_top {

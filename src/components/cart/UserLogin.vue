@@ -1,11 +1,19 @@
 <template>
-    <div class="user_login">
+    <div class="user_login" @click="jumpToLoginPage()">
         <a href="javascript:;">登录</a>
         <p>登录后查看电脑与手机购物车中的商品</p>
     </div>
 </template>
 <script>
-export default {};
+export default {
+  methods:{
+    jumpToLoginPage(){
+      this.$router.push({
+        path:'/login'
+      });
+    }
+  }
+};
 </script>
 <style lang="scss" scoped>
 .user_login {

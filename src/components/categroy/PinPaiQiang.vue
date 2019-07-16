@@ -60,7 +60,11 @@ export default {
 <style lang="scss" scoped>
 .pinpaiqiang {
   padding-right: 0.306667rem;
+<<<<<<< HEAD
   padding-top: 0.4rem;
+=======
+  padding-top: .4rem;
+>>>>>>> af544975da47cf2f8711922167b19e1ac72aa498
   width: 100%;
   height: 100%;
   overflow-y: scroll;

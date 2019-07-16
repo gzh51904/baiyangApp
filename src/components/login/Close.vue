@@ -1,13 +1,17 @@
 <template>
     <div class="login_close">
-        <a href="javascript:;" class="close_btn">
+        <a href="javascript:;" class="close_btn" @click=tiao()>
             <i class="iconfont icon-close"></i>
         </a>
     </div>
 </template>
 <script>
 export default {
-    
+    methods:{
+        tiao(){
+            this.$router.push("/member")
+        }
+    }
     
 }
 </script>
