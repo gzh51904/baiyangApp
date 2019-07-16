@@ -5,6 +5,7 @@ const Router = express.Router();
 const goodsRouter = require('./goods');
 const regRouter = require('./reg');
 const loginRouter = require('./login');
+const logRouter = require('./log');
 const uploadRouter = require('./upload');
 const chephoRouter = require('./chepho');
 const {formatData,token:{verify}} = require('../utils');
@@ -51,6 +52,7 @@ Router.use('/reg',regRouter);
 Router.use('/login',loginRouter);
 Router.use('/upload',uploadRouter);
 Router.use('/chepho',chephoRouter);
+Router.use('/log',logRouter);
 
 // 校验token
 Router.use('/verify',(req,res)=>{
