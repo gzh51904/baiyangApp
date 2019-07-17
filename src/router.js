@@ -22,12 +22,12 @@ import YuErJing from "./components/categroy/YuErJing.vue"; //育儿经
 import Setting from "./components/member/Setting.vue"; //设置页
 import Order from "./components/member/Order.vue"; //订单页
 
-import axios from "axios";
+// import axios from "axios";
 
 Vue.use(Router);
 
 export default new Router({
-  mode: "history",
+  // mode: "history",
   base: process.env.BASE_URL,
   routes: [
     {
