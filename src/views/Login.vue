@@ -6,24 +6,35 @@
     </section>
 </template>
 <script>
-import Close from '../components/login/Close.vue';
-import LoginLogo from '../components/login/LoginLogo.vue';
-import PhoneLogin from '../components/login/PhoneLogin.vue';
+import { mapMutations } from "vuex";
+import Close from "../components/login/Close.vue";
+import LoginLogo from "../components/login/LoginLogo.vue";
+import PhoneLogin from "../components/login/PhoneLogin.vue";
 export default {
-    components:{
-        "login-close":Close,
-        "login-logo":LoginLogo,
-        "phone-login":PhoneLogin
-    }
-    
-}
+  components: {
+    "login-close": Close,
+    "login-logo": LoginLogo,
+    "phone-login": PhoneLogin
+  },
+  methods: {
+    ...mapMutations(["displayFoot"])
+  },
+
+  created() {
+    //隐藏foot
+    this.displayFoot(false);
+    console.log(this.$store);
+  },
+  destroyed() {
+    this.displayFoot(true);
+  }
+};
 </script>
 <style lang="scss" scoped>
-#login{
-    // width: 100%;
-    // height: 100%;
+#login {
+  // width: 100%;
+  // height: 100%;
 }
-
 </style>
 
 

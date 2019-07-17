@@ -1,12 +1,30 @@
 <template>
     <div class="delete_goods">
         <div class="select_all">
-            <input type="checkbox" checked>
+            <input type="checkbox" checked @click="selectAllGoods()" ref="selectAll">
             <span>全选</span>
         </div>
-        <a href="javascript:;" class="delete_btn">删除</a>
+        <a href="javascript:;" class="delete_btn" @click="removeGoods">删除</a>
     </div>
 </template>
+<script>
+export default {
+  props:['selectAll','remove'],
+  methods:{
+    selectAllGoods(){
+      var result = this.$refs.selectAll.checked;
+      this.selectAll(result);
+    },
+    removeGoods(){
+      this.remove();
+    }
+
+
+  }
+  
+}
+</script>
+
 
 <style lang="scss" scoped>
 .delete_goods {

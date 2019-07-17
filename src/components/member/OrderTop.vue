@@ -3,26 +3,26 @@
         <div class="title">
             <a href="javascript:;" @click="jumpToOrderPage()">
                 <h3>我的订单</h3>
-                <h5 v-on:click="tianzhuan()">查看全部&gt;</h5>
+                <h5>查看全部&gt;</h5>
             </a>
         </div>
         <div class="order1">
             <ul class="order_list">
                 <li class="list_item">
                     <a href="javascript:;">
-                        <i class="iconfont icon-daifukuan"></i>
+                        <i class="iconfont icon-tuihuo"></i>
                         <p>待付款</p>
                     </a>
                 </li>
                 <li class="list_item">
                     <a href="javascript:;">
-                        <i class="iconfont icon-daifahuo"></i>
+                        <i class="iconfont icon-tuihuo"></i>
                         <p>待发货</p>
                     </a>
                 </li>
                 <li class="list_item">
                     <a href="javascript:;">
-                        <i class="iconfont icon-daishouhuo"></i>
+                        <i class="iconfont icon-tuihuo"></i>
                         <p>待收货</p>
                     </a>
                 </li>

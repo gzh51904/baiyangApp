@@ -1,15 +1,16 @@
 <template>
   <section id="baiyang_cart">
     <!-- 头部 -->
-    <cart-head></cart-head>
+    <cart-head @edit="edit" :isEdit="isEdit"></cart-head>
     <!-- 用户登录 未登录的时候显示-->
     <user-login v-show="!isLogin"></user-login>
     <!-- 购物车为空 购物车为空时显示-->
     <cart-empty v-show="isNull"></cart-empty>
     <!-- 购物车商品 购物车不为空时显示-->
-    <cart-goods v-show="!isNull" :aGoods="aGoods"></cart-goods>
-    <!-- <delete></delete> -->
-    
+    <cart-goods v-show="!isNull" :aGoods="aGoods" :reduce="reduce" :add="add" :inputNum="inputNum" :isSelectAll="isSelectAll" :selectAll2="selectAll2" :selectOne="selectOne"></cart-goods>
+
+    <delete v-show="!isEdit" :selectAll="selectAll" :remove="remove"></delete>
+
   </section>
 </template>
 <script>
@@ -17,122 +18,320 @@ import Head from "../components/cart/Head.vue";
 import CartEmpty from "../components/cart/CartEmpty.vue";
 import UserLogin from "../components/cart/UserLogin.vue";
 import CartGoods from "../components/cart/CartGoods.vue";
-// import Delete from "../components/cart/Delete.vue";
+import Delete from "../components/cart/Delete.vue";
 export default {
   components: {
     "cart-head": Head,
     "cart-empty": CartEmpty,
     "user-login": UserLogin,
     "cart-goods": CartGoods,
-    // Delete
+    Delete
   },
   data() {
     return {
+      isEdit: true,
       isLogin: false, //用户是否登录
       isNull: true, //购物车是否为空,
-      aGoods: []
+      aGoods: [],
+      isSelectAll: true,
+      aSelectResult: []
     };
   },
+
   methods: {
-    
-  },
-  async created() {
-    // 用户是否登录 本地存储是否有cart对象
-    var sUserName = localStorage.getItem("username"); //获取用户名
-    var sCart = localStorage.getItem("cart"); //获取cart对象的内容
-    var aCart = [];
-    var arr = [];
-    // 1.用户未登录 cart对象不存在
-    if (!sUserName && !sCart) {
-      console.log("用户未登录 cart对象不存在");
-      // 设置标志
-      this.isLogin = false;
-      this.isNull = true;
-      return;
-    }
-
-    // 2.用户未登录 cart对象存在
-    if (!sUserName && sCart) {
-      console.log("用户未登录 cart对象存在");
-      // 设置标志
-      this.isLogin = false;
-      this.isNull = false;
-      // 数据渲染
-      aCart = JSON.parse(sCart); //将字符串转为数组
-      this.aGoods = aCart;
-      return;
-    }
-    // 3.用户已登录 cart对象不存在
-    if (sUserName && !sCart) {
-      console.log("用户已登录 cart对象不存在");
-      this.isLogin = true; //设置标志
-
-      // 获取数据库数据
-      var oData1 = await this.$axios.get(
-        "http://127.0.0.1:1904/cart/" + sUserName
-      );
-      var aData = oData1.data.data;
-      console.log(aData);
-
-      // 3-1.数据库购物车表无商品记录
-      if (aData.length <= 0) {
-        console.log("数据库无记录");
-        // 设置标志
-        this.isNull = true;
-      } else {
-        this.isNull = false;
-        // 数据渲染
-        console.log("数据库有记录");
-        this.aGoods = aData;
+    changeImgUrl(arr) {
+      for (var i = 0; i < arr.length; i++) {
+        var url = arr[i].goods_img;
+        arr[i].goods_img = require("../assets/img/" + url);
+        console.log(arr[i].goods_img);
+        return arr;
       }
-      // 3-2.数据库购物车表有商品记录
-      return;
-    }
-    // 4.用户已登录 cart对象存在
-    if (sUserName && sCart) {
-      console.log("用户已登录 cart对象存在");
-      // 设置标志
-      this.isLogin = true;
-      this.isNull = false;
-      aCart = JSON.parse(sCart); //将字符串转为数组
-      // 获取数据库数据
-      var oData2 = await this.$axios.get(
-        "http://127.0.0.1:1904/cart/" + sUserName
-      );
-      var aData = oData2.data.data;
-      // 判断数据库是否有记录
-      if (aData.length <= 0) {
-        console.log("数据库无记录");
-        // 渲染本地存储的数据渲染到页面
-        this.aGoods = aCart;
-        // console.log(this.aGoods);
-        // 将本地存储的数据存储到数据库
-        for (var i = 0; i < aCart.length; i++) {
-          var arr2 = aCart[i];
-          arr2.username = sUserName;
-          console.log(arr2);
-          await this.$axios.post("http://127.0.0.1:1904/cart",arr2);
-        }
-        // await this.$axios.post();
-      } else {
-        console.log("数据库有记录");
+      
+    },
 
-        // 将本地存储存入数据库
-        for (var i = 0; i < aCart.length; i++) {
-          var arr = aCart[i];
-          arr.username = sUserName;
-          await this.$axios.post("http://127.0.0.1:1904/cart", arr);
+    async getDatas() {
+      // console.log();
+
+      /*
+    需求分析：
+    1.数据来源：本地存储+数据库
+    2.四种情况：
+      2.1用户未登录 本地存储无数据=> isLogin=false isNull=true
+      2.2用户未登录 本地存储有数据=> isLogin=false isNull=false 渲染本地存储数据
+      2.3用户已登录 本地存储无数据=> isLogin=true
+        2.3.1数据库无数据=> isNull=true
+        2.3.2数据库有数据=> isNull=false 渲染数据库数据
+      2.4用户已登录 本地存储有数据=> isLogin=true isNull=false 
+        2.4.1数据库无数据=>渲染本地存储数据 将数据写入数据库
+        2.4.2数据库有数据=>将数据写入数据库 读取数据库 渲染页面
+
+    
+    */
+
+      var sUserName = localStorage.getItem("username"); //获取用户名
+      var sCart = localStorage.getItem("cart"); //获取cart对象的内容
+
+      var aCart = [];
+      var arr = [];
+
+      /************* 2.1用户未登录 本地存储无数据=> isLogin=false isNull=true *****************/
+      if (!sUserName && !sCart) {
+        console.log("用户未登录 本地存储无数据");
+        // 设置标志
+        this.isLogin = false;
+        this.isNull = true;
+        return;
+      }
+
+      /************* 2.2用户未登录 本地存储有数据=> isLogin=false isNull=false 渲染本地存储数据 *****************/
+      if (!sUserName && sCart) {
+        console.log("用户未登录 本地存储有数据");
+        // 设置标志
+        this.isLogin = false;
+        this.isNull = false;
+        // 渲染本地存储数据
+
+        // this.aGoods = JSON.parse(sCart);
+        this.aGoods = this.changeImgUrl(JSON.parse(sCart));
+        console.log(this.aGoods);
+        return;
+      }
+
+      /************* 2.3用户已登录 本地存储无数据=> isLogin=true *****************/
+      if (sUserName && !sCart) {
+        this.isLogin = true; //设置登录标志
+        var oSqlData1 = await this.$axios.get(
+          "http://127.0.0.1:1904/cart/" + sUserName //获取数据库数据
+        );
+        var aSqlData1 = oSqlData1.data.data;
+        // console.log(aSqlData1);
+
+        /********2.3.1数据库无数据=> isNull=true*********/
+        if (aSqlData1.length <= 0) {
+          console.log("用户已登录 本地存储无数据 数据库无数据");
+          this.isNull = true;
+          return;
         }
-        // 读取数据库数据，渲染页面
-        var oData3 = await this.$axios.get(
+        /********2.3.2数据库有数据=> isNull=false 渲染数据库数据*********/
+        if (aSqlData1.length > 0) {
+          console.log("用户已登录 本地存储无数据 数据库有数据");
+          this.isNull = false;
+          this.aGoods = this.changeImgUrl(aSqlData1);
+          console.log(this.aGoods);
+          return;
+        }
+      }
+
+      /************* 2.4用户已登录 本地存储有数据=> isLogin=true isNull=false*****************/
+      if (sUserName && sCart) {
+        console.log("用户已登录 本地存储有数据");
+        this.isLogin = true; //设置标志
+        this.isNull = true;
+        var aLocalDatas = JSON.parse(sCart);
+        // 将本地缓存的数据写入数据库
+        for (var i = 0; i < aLocalDatas.length; i++) {
+          var obj = {};
+          for (var key in aLocalDatas[i]) {
+            obj[key] = aLocalDatas[i][key];
+          }
+          obj["username"] = sUserName;
+
+          await this.$axios.post("http://127.0.0.1:1904/cart", obj);
+        }
+        // 读取数据库数据
+        var oSqlData2 = await this.$axios.get(
           "http://127.0.0.1:1904/cart/" + sUserName
         );
-        var aData2 = oData3.data.data;
-        this.aGoods = aData2;
+        var aSqlData2 = oSqlData2.data.data;
+        // 渲染页面
+        this.aGoods = this.changeImgUrl(aSqlData2);
+        localStorage.removeItem("cart");
       }
-      // 清除本地缓存
-      localStorage.removeItem("cart");
+    },
+
+    edit() {
+      // console.log(123);
+      this.isEdit = !this.isEdit;
+    },
+    async reduce(index) {
+      var iNum = this.aGoods[index].num; // 获取当前商品数量
+
+      if (iNum >= 2) {
+        iNum--; //商品数量减1
+        this.aGoods[index].num = iNum; //将修改后的值渲染到页面
+        var sUserName = localStorage.getItem("username"); //获取用户名
+        if (sUserName) {
+          // 用户已登录 修改数据库
+          await this.$axios.patch(
+            "http://127.0.0.1:1904/cart/" +
+              this.aGoods[index].id +
+              "&" +
+              this.aGoods[index].num
+          );
+        } else {
+          // 用户未登录 修改本地存储
+          localStorage.setItem("cart", JSON.stringify(this.aGoods));
+        }
+      }
+    },
+    // 增
+    async add(index) {
+      // 获取数量
+      var iNum = this.aGoods[index].num;
+      // 获取商品库存量
+      var datas = await this.$axios.get(
+        "http://127.0.0.1:1904/goods/" + this.aGoods[index].goods_id
+      );
+      var iStockNum = datas.data.data[0].num;
+      // 临界判断
+      if (iNum < iStockNum) {
+        // 数量加1
+        iNum++;
+        // 修改商品数量 渲染到页面
+        this.aGoods[index].num = iNum;
+        // 获取用户名
+        var sUserName = localStorage.getItem("username"); //获取用户名
+        // 判断用户登录
+        if (sUserName) {
+          // 用户已登录 修改数据库值
+          await this.$axios.patch(
+            "http://127.0.0.1:1904/cart/" +
+              this.aGoods[index].id +
+              "&" +
+              this.aGoods[index].num
+          );
+        } else {
+          // 用户未登录 修改本地存储
+          localStorage.setItem("cart", JSON.stringify(this.aGoods));
+        }
+      }
+    },
+    // 输入数量
+    async inputNum(index, num) {
+      var iOriNum = this.aGoods[index].num; // 原数量
+      var iCurNum = num; //当前数量
+
+      var oData = await this.$axios.get(
+        "http://127.0.0.1:1904/goods/" + this.aGoods[index].goods_id
+      );
+      var iStockNum = oData.data.data[0].num; //商品库存量
+
+      var sUserName = localStorage.getItem("username"); //获取用户名
+
+      // 去掉空格
+      iCurNum = iCurNum.replace(/\s+/g, ""); //去掉输入值的空格
+
+      // 非空判断
+      if (iCurNum == "") {
+        iCurNum = 1;
+      }
+
+      // 小数转为整数
+      iCurNum = parseInt(iCurNum);
+
+      // 数值范围处理
+      if (iCurNum < 1) {
+        iCurNum = 1;
+      }
+
+      if (iCurNum > iStockNum) {
+        iCurNum = iStockNum;
+      }
+
+      // 渲染页面
+      this.aGoods[index].num = iCurNum;
+
+      // 判断用户登录
+      if (sUserName) {
+        // 用户已登录 修改数据库值
+        await this.$axios.patch(
+          "http://127.0.0.1:1904/cart/" +
+            this.aGoods[index].id +
+            "&" +
+            this.aGoods[index].num
+        );
+      } else {
+        // 用户未登录 修改本地存储
+        localStorage.setItem("cart", JSON.stringify(this.aGoods));
+      }
+    },
+
+    selectAll(result) {
+      this.isSelectAll = result;
+      for (var i = 0; i < this.aGoods.length; i++) {
+        this.aSelectResult.push(true);
+      }
+    },
+    selectAll2(arr) {
+      // console.log("1",arr);
+      this.aSelectResult = arr;
+    },
+    selectOne(arr) {
+      // console.log("2",arr);
+      this.aSelectResult = arr;
+    },
+    async remove() {
+      console.log("删除");
+      var sUserName = localStorage.getItem("username");
+      // console.log(this.aSelectResult.length);
+      // if (this.aSelectResult.length == 0) {
+      //   return;
+      // }
+      // return;
+      // if(this.aSelectResult)
+      // 用户登录
+      if (sUserName) {
+        console.log(sUserName);
+        var arr = [];
+
+        for (var i = 0; i < this.aSelectResult.length; i++) {
+          console.log("denglu:", this.aSelectResult);
+          if (this.aSelectResult[i]) {
+            // 去数据库删除被选择的商品
+            var result = await this.$axios.delete(
+              "http://127.0.0.1:1904/cart/" + this.aGoods[i].id
+            );
+            console.log(result);
+            // this.aGoods.splice(i, 1);
+          } else {
+            // 将没有被选择的商品添加到数组
+            arr.push(this.aGoods[i]);
+          }
+        }
+        this.aGoods = arr;
+      } else {
+        // 用户未登录
+        var arr = [];
+        for (var i = 0; i < this.aSelectResult.length; i++) {
+          if (!this.aSelectResult[i]) {
+            // this.aGoods.splice(i, 1);
+            // 将没有被删除的数据存储到数组
+            arr.push(this.aGoods[i]);
+            // localStorage.setItem("cart",JSON.stringify(this.aGoods));
+            // if(this.aGoods.length == 0){
+            //   localStorage.removeItem("cart");
+            // }
+          }
+        }
+        this.aGoods = arr;
+        if (arr.length > 0) {
+          localStorage.setItem("cart", JSON.stringify(arr));
+        } else {
+          localStorage.removeItem("cart");
+        }
+      }
     }
+  },
+  created() {
+    this.getDatas();
+  },
+
+  beforeMount() {
+    // console.log(this.aGoods);
+    for (var i = 0; i < this.aGoods.length; i++) {
+      this.aSelectResult.push(true);
+    }
+    // console.log(this.aSelectResult);
   }
 };
 </script>

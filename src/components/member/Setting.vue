@@ -1,34 +1,49 @@
 <template>
-    <section id="set">
-        <div class="shezhi">
-            <img src="../../assets/img/arrow_left_b.png"  alt="" v-on:click="tianzhuan()">
-            <div class="shezhi_c">设置</div>
-            <div class="shehzi_r">. . .</div>
+  <section id="set">
+    <div class="shezhi">
+      <img src="../../assets/img/arrow_left_b.png" alt="" v-on:click="tianzhuan()">
+      <div class="shezhi_c">设置</div>
+      <div class="shehzi_r">. . .</div>
+    </div>
+    <ul class="container">
+      <li>
+        <div class="inp">
+          <p>登录密码</p>
+          <p>建议您定期更改密码以保护帐号安全</p>
         </div>
-        <ul class="container">
-            <li >
-                <div class="inp"><p>登录密码</p><p>建议您定期更改密码以保护帐号安全</p></div>
-                <div>〉</div>
-            </li>
-            <li >
-                <div class="inp"><p>手机验证</p><p>若你的手机已丢失或停用,请立即修改更换</p></div>
-                <div>134****8226〉</div>
-            </li>       
-            <li >
-                <div class="inp"><p>实名验证</p><p>用于跨境订单清关</p></div>
-                <div>〉</div>
-            </li>    
-            <li>
-                <div class="inp"><p>支付密码</p><p>建议您设置复杂的支付密码保护帐号全额安全</p></div>
-                <div>未设置〉</div>
-            </li>
-        </ul>
-        <div class="fankui">
-            <div class="fan"><p>用户反馈</p><p>您在使用中遇到的问题与建议可向我们反馈</p></div>
-            <div>〉</div>
+        <div>〉</div>
+      </li>
+      <li>
+        <div class="inp">
+          <p>手机验证</p>
+          <p>若你的手机已丢失或停用,请立即修改更换</p>
         </div>
-        <div class="exit">安全退出</div>
-    </section>
+        <div>134****8226〉</div>
+      </li>
+      <li>
+        <div class="inp">
+          <p>实名验证</p>
+          <p>用于跨境订单清关</p>
+        </div>
+        <div>〉</div>
+      </li>
+      <li>
+        <div class="inp">
+          <p>支付密码</p>
+          <p>建议您设置复杂的支付密码保护帐号全额安全</p>
+        </div>
+        <div>未设置〉</div>
+      </li>
+    </ul>
+    <div class="fankui">
+      <div class="fan">
+        <p>用户反馈</p>
+        <p>您在使用中遇到的问题与建议可向我们反馈</p>
+      </div>
+      <div>〉</div>
+    </div>
+    <div class="exit" @click="quit()">安全退出</div>
+  </section>
 </template>
 <script>
 export default {
@@ -38,6 +53,11 @@ export default {
   methods: {
     tianzhuan: function() {
       this.$router.push({ name: "member" });
+    },
+    quit() {
+      // 获取用户名
+      localStorage.removeItem("username");//删除本地存储username对象
+      this.$router.push("/member");//跳转到“我的”页面
     }
   }
 };

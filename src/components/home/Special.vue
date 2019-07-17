@@ -46,7 +46,7 @@ export default {
     };
   },
   methods: {
-    jumpPage(branch_id) {
+    jumpToSpecialPage(branch_id) {
       this.$router.push({
         path: "special",
         query: {

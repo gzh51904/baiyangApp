@@ -1,33 +1,39 @@
 <template>
   <header class="cart_head">
     <p class="title">购物车</p>
-    <div class="edit">
-      <a href="javascripti:;" v-text="operation" @click="edit()"></a>
+    <div class="edit" @click="$emit('edit')">
+      <a href="javascripti:;" v-text="isEdit?'编辑':'完成'"></a>
     </div>
 
   </header>
 </template>
 <script>
 export default {
+  props:['isEdit'],
+
   data() {
     return {
-      isEdit: true
+      // isEdit: true
     };
   },
   computed: {
-    operation() {
-      if (this.isEdit) {
-        return "编辑";
-      } else {
-        return "完成";
-      }
-    }
+    // operation() {
+    //   if (this.isEdit) {
+    //     return "编辑";
+    //   } else {
+    //     return "完成";
+    //   }
+    // }
   },
   methods: {
-    async edit() {
-      this.isEdit = !this.isEdit;
+    editOperation(){
+      this.edit(123);
     }
-  }
+    // async edit() {
+    //   this.isEdit = !this.isEdit;
+    // }
+  },
+  
 };
 </script>
 <style lang="scss" scoped>
