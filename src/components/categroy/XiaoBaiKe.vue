@@ -33,8 +33,8 @@ export default {
         {
           id: "fei",
           title: "肺",
-          text_url: require("../../assets/img/categroy/baike_5.png"),
-          img_url: require("../../assets/img/categroy/baike_6.png")
+          text_url: require("../../assets/img/categroy/baike_6.png"),
+          img_url: require("../../assets/img/categroy/baike_5.png")
         },
         {
           id: "wei",

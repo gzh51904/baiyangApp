@@ -1,76 +1,58 @@
 <template>
-    <section class="pinpaiqiang">
-        <ul class="goods_list">
-            <li class="list_item" v-for="item in goods" :key="item.id">
-                <a href="javascript:;">
-                    <div class="goods">
-                        <div class="goods_pic">
-                            <img :src="item.img_url" alt="#">
-                        </div>
-                        <div class="goods_infos">
-                            <h3 class="goods_name" v-text="item.name"></h3>
-                            <p class="goods_des" v-text="item.des"></p>
-                        </div>
-                    </div>
-                    <div class="goods_jump_btn">
-                        <span class="icon">&gt;</span>
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </section>
+  <section class="pinpaiqiang">
+    <ul class="goods_list">
+      <li class="list_item" v-for="item in goods" :key="item.id">
+        <a href="javascript:;">
+          <div class="goods">
+            <div class="goods_pic">
+              <img :src="item.img_url" alt="#" />
+            </div>
+            <div class="goods_infos">
+              <h3 class="goods_name" v-text="item.name"></h3>
+              <p class="goods_des" v-text="item.des"></p>
+            </div>
+          </div>
+          <div class="goods_jump_btn">
+            <span class="icon">&gt;</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </section>
 </template>
 <script>
 export default {
-  data(){
-    return{
-      goods:[{
-        id:1,
-        name:'迪巧',
-        des:'迪巧 D-cal ：美国迪巧 补钙专家。按照FDA标准在美国生产，多年专注于补钙产品的研究和生产，针对不同年龄段人群定制配方，产品具有安心、足量、好吸收、服用方便、不易便秘的特点，是妈妈及婴幼儿补钙优选品牌。',
-        img_url:'https://b2cstatic.baiyangwang.com/shop/brand/05786788036934960_sm.jpg',
-      },{
-        id:1,
-        name:'迪巧',
-        des:'迪巧 D-cal ：美国迪巧 补钙专家。按照FDA标准在美国生产，多年专注于补钙产品的研究和生产，针对不同年龄段人群定制配方，产品具有安心、足量、好吸收、服用方便、不易便秘的特点，是妈妈及婴幼儿补钙优选品牌。',
-        img_url:'https://b2cstatic.baiyangwang.com/shop/brand/05786788036934960_sm.jpg',
-      },{
-        id:1,
-        name:'迪巧',
-        des:'迪巧 D-cal ：美国迪巧 补钙专家。按照FDA标准在美国生产，多年专注于补钙产品的研究和生产，针对不同年龄段人群定制配方，产品具有安心、足量、好吸收、服用方便、不易便秘的特点，是妈妈及婴幼儿补钙优选品牌。',
-        img_url:'https://b2cstatic.baiyangwang.com/shop/brand/05786788036934960_sm.jpg',
-      },{
-        id:1,
-        name:'迪巧',
-        des:'迪巧 D-cal ：美国迪巧 补钙专家。按照FDA标准在美国生产，多年专注于补钙产品的研究和生产，针对不同年龄段人群定制配方，产品具有安心、足量、好吸收、服用方便、不易便秘的特点，是妈妈及婴幼儿补钙优选品牌。',
-        img_url:'https://b2cstatic.baiyangwang.com/shop/brand/05786788036934960_sm.jpg',
-      },{
-        id:1,
-        name:'迪巧',
-        des:'迪巧 D-cal ：美国迪巧 补钙专家。按照FDA标准在美国生产，多年专注于补钙产品的研究和生产，针对不同年龄段人群定制配方，产品具有安心、足量、好吸收、服用方便、不易便秘的特点，是妈妈及婴幼儿补钙优选品牌。',
-        img_url:'https://b2cstatic.baiyangwang.com/shop/brand/05786788036934960_sm.jpg',
-      },{
-        id:1,
-        name:'迪巧',
-        des:'迪巧 D-cal ：美国迪巧 补钙专家。按照FDA标准在美国生产，多年专注于补钙产品的研究和生产，针对不同年龄段人群定制配方，产品具有安心、足量、好吸收、服用方便、不易便秘的特点，是妈妈及婴幼儿补钙优选品牌。',
-        img_url:'https://b2cstatic.baiyangwang.com/shop/brand/05786788036934960_sm.jpg',
-      },{
-        id:1,
-        name:'迪巧',
-        des:'迪巧 D-cal ：美国迪巧 补钙专家。按照FDA标准在美国生产，多年专注于补钙产品的研究和生产，针对不同年龄段人群定制配方，产品具有安心、足量、好吸收、服用方便、不易便秘的特点，是妈妈及婴幼儿补钙优选品牌。',
-        img_url:'https://b2cstatic.baiyangwang.com/shop/brand/05786788036934960_sm.jpg',
-      },{
-        id:1,
-        name:'迪巧',
-        des:'迪巧 D-cal ：美国迪巧 补钙专家。按照FDA标准在美国生产，多年专注于补钙产品的研究和生产，针对不同年龄段人群定制配方，产品具有安心、足量、好吸收、服用方便、不易便秘的特点，是妈妈及婴幼儿补钙优选品牌。',
-        img_url:'https://b2cstatic.baiyangwang.com/shop/brand/05786788036934960_sm.jpg',
-      },{
-        id:1,
-        name:'迪巧',
-        des:'迪巧 D-cal ：美国迪巧 补钙专家。按照FDA标准在美国生产，多年专注于补钙产品的研究和生产，针对不同年龄段人群定制配方，产品具有安心、足量、好吸收、服用方便、不易便秘的特点，是妈妈及婴幼儿补钙优选品牌。',
-        img_url:'https://b2cstatic.baiyangwang.com/shop/brand/05786788036934960_sm.jpg',
-      }]
+  data() {
+    return {
+      goods: [
+      ]
+    };
+  },
+
+  methods: {},
+
+  async created() {
+    let goodlist = await this.$axios.get("http://localhost:1904/find/小百科");
+    console.log(goodlist);
+    let lists = [];
+    for (var i = 0; i < goodlist.data.data.length; i++) {
+      // console.log(goodlist.data.data[i].name);
+      let imgurl = require("../../assets/img/" +
+        goodlist.data.data[i].img_url
+          .split(";")
+          .slice(0, 1)
+          .join(""));
+      // console.log(imgurl);
+      lists.push({
+        img_url: imgurl,
+        name: goodlist.data.data[i].name,
+        des: goodlist.data.data[i].des,
+        id: goodlist.data.data[i].id
+      });
     }
+    console.log(lists);
+    this.goods=lists;
+    // this.list = lists;
   }
 };
 </script>
@@ -78,7 +60,7 @@ export default {
 <style lang="scss" scoped>
 .pinpaiqiang {
   padding-right: 0.306667rem;
-  padding-top: .4rem;
+  padding-top: 0.4rem;
   width: 100%;
   height: 100%;
   overflow-y: scroll;

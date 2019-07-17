@@ -12,7 +12,6 @@
         <a href="javascript:;" @click="changTab(7)">孕期营养攻略</a>
       </div>
     </div>
-
     <div class="hao">
       <tui-jian v-show="active===0"></tui-jian>
       <mei-rong v-show="active===1"></mei-rong>
