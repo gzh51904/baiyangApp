@@ -45,9 +45,9 @@ export default {
     confirm() {
       let params = this.goods;
       params = this.$qs.stringify(params);
-      console.log(this.goods);
+      // console.log(this.goods);
       this.$axios.post("/api/goods", params).then(({ data }) => {
-        console.log(data);
+        // console.log(data);
       });
       this.$message("添加成功")
     }

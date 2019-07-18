@@ -111,8 +111,8 @@ export default {
   },
   created() {
     // let limit = 9;
-    console.log(888888888888)
-    let start = 0;
+    // console.log(888888888888);
+    // let start = 0;
     let params = {};
     this.$axios.get("/api/goods", { params }).then(({ data }) => {
       this.total = data.data.length;
@@ -124,7 +124,7 @@ export default {
     var add = $(".add");
     var _delete = $("._delete");
     var sumBtn = $("table thead input");
-    var checkBtns = $("table tbody input");
+    // var checkBtns = $("table tbody input");
     var deleteIDList = [];
     var delGoodsList = [];
     add.on("click", () => {
@@ -155,11 +155,11 @@ export default {
           delGoodsList.push(index);
         }
       }
-      console.log(deleteIDList);
+      // console.log(deleteIDList);
       for (let i = 0; i < deleteIDList.length; i++) {
         var params = { id: deleteIDList[i] };
         this.$axios.delete("/api/goods", { params }).then(({ data }) => {
-          console.log(data);
+          // console.log(data);
           if (data.status == 200) {
             this.goodsList.splice(i, 1);
           }
@@ -175,7 +175,7 @@ export default {
   },
   methods: {
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      // console.log(`当前页: ${val}`);
       let limit = 9;
       let start = (Number(val) - 1) * limit;
       this.start = start;
@@ -185,13 +185,12 @@ export default {
       });
     },
     deleteItem(idx) {
-      
       var id = this.goodsList[idx].id;
-      id = Number(id)
-      console.log(id)
+      id = Number(id);
+      // console.log(id);
       var params = { id };
       this.$axios.delete(" /api/goods/id", { params }).then(({ data }) => {
-        console.log(data);
+        // console.log(data);
         if (data.status == 1000) {
           this.goodsList.splice(idx, 1);
         }
@@ -206,14 +205,14 @@ export default {
     },
     cancel() {
       this.MSGbox = false;
-      console.log(123);
+      // console.log(123);
       $("body")
         .css("z-index", 0)
         .css("background-color", "#fff");
     },
     confirm() {
-      console.log(this.goods);
-      console.log(this.goodsList[this.currentIdx].name);
+      // console.log(this.goods);
+      // console.log(this.goodsList[this.currentIdx].name);
       this.goodsList[this.currentIdx].name = this.goods.goodsname
         ? this.goods.goodsname
         : this.goodsList[this.currentIdx].name;
@@ -229,7 +228,7 @@ export default {
       this.goodsList[this.currentIdx].des = this.goods.des
         ? this.goods.des
         : this.goodsList[this.currentIdx].des;
-        this.goodsList[this.currentIdx].img_url = this.goods.img_url
+      this.goodsList[this.currentIdx].img_url = this.goods.img_url
         ? this.goods.img_url
         : this.goodsList[this.currentIdx].img_url;
       var id = this.goodsList[this.currentIdx].id;
@@ -243,14 +242,14 @@ export default {
       let img_url = this.goodsList[this.currentIdx].img_url;
       // let id = this.goodsList[this.currentIdx].id;
 
-      let params = { name, cur_price, num, type,des, img_url, id };
-      console.log(params);
+      let params = { name, cur_price, num, type, des, img_url, id };
+      // console.log(params);
 
       this.$axios.put("/api/goods/?id=" + id, params).then(({ data }) => {
-        console.log(data);
-      }); 
+        // console.log(data);
+      });
       this.MSGbox = false;
-      console.log(123);
+      // console.log(123);
       $("body")
         .css("z-index", 0)
         .css("background-color", "#fff");

@@ -1,39 +1,34 @@
-const path = require('path');
-function resolve (dir) {
-    return path.join(__dirname, dir)
-}
-const webpack = require('webpack');
 module.exports = {
-    publicPath: process.env.NODE_ENV === 'production' ? '/online/' : '/',
-    // outputDir: 在npm run build时 生成文件的目录 type:string, default:'dist'
-    // outputDir: 'dist',
-    // pages:{ type:Object,Default:undfind } 
-    devServer: {
-        port: 8888, // 端口号
-        host:'0.0.0.0',// 通过网址可以直接访问
-        https: false, // https:{type:Boolean}
-        open: true, //配置自动启动浏览器
-        // proxy: 'http://localhost:4000' // 配置跨域处理,只有一个代理
-        proxy: {
-            '/api/*':{
-                "target": "http://localhost:1904", //目标服务器
-                "changeOrigin": true,
-                "pathRewrite": {
-                    "^/api" : "/"
-                },
-            '/foo': {
-                target: '<other_url>'
-            }
-        },  // 配置多个代理
+  devServer: {
+    proxy: {
+      "/api": {
+        target: "http://xxx:20101/",
+        changeOrigin: true,
+        pathRewrite: {
+          "^/api": ""
+        }
+      }
+    },
+    host: "localhost",
+    port: 8008
+  },
+  runtimeCompiler: true,
+  productionSourceMap: false,
+  publicPath: "./",
+  outputDir: "./dist",
+  lintOnSave: false,
+  //警告 webpack 的性能提示
+  configureWebpack: {
+    performance: {
+      hints: "warning",
+      //入口起点的最大体积 整数类型（以字节为单位）
+      maxEntrypointSize: 50000000,
+      //生成文件的最大体积 整数类型（以字节为单位 300k）
+      maxAssetSize: 30000000,
+      //只给出 js 文件的性能提示
+      assetFilter: function(assetFilename) {
+        return assetFilename.endsWith(".js");
+      }
     }
-},
-chainWebpack: (config)=>{
-    //修改文件引入自定义路径
-    config.resolve.alias
-        .set('@', resolve('http://10.3.140.35'))
-        // .set('style', resolve('src/assets/style'))
-},
- // 加载器loader
-
-
-}
+  }
+};
