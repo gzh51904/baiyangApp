@@ -29,9 +29,7 @@ export default {
   computed: {
   },
   methods: {
-    // saveUserInfos() {
-    //   localStorage.setItem("username", "ganliyun3477");
-    // },
+    
     jumpToCartPage() {
       this.$router.push("/cart");
     },

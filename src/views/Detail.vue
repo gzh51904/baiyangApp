@@ -73,7 +73,7 @@ export default {
         // console.log(sImgUrl);
         aImg4.push(sImgUrl);
       }
-      console.log(aImg4);
+      // console.log(aImg4);
       this.slidePics = aImg2;
       this.goodsDesPics = aImg4;
       this.goodsInfos = datas.data.data;

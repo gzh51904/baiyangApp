@@ -1,33 +1,35 @@
 <template>
-    <div class="container" >
-    <div class="c_left" >
-       <div class="victim1" v-if="loading" v-for="(tab,idx) of goodsLeft" :key="idx" @click="changTab(tab.id)" >
-         <img src="../../static/img/pin9.jpg" alt="" >
-         <h3>{{goodsLeft[idx].name}}</h3>
-         <p>{{goodsLeft[idx].branch}}</p>
-         <h5><span><i></i>百洋健康</span><span><i></i><i></i></span></h5>
-       </div>
-       <!-- <div class="victim1">
-         <img src="../../assets/img/faxian4.jpg" alt="">
-         <h3>中国11-13岁青少年膳食营养素参考摄入量</h3>
-         <p>钙铁锌维生素</p>
-         <h5><span><i></i>百洋健康</span><span><i></i><i></i></span></h5>
-       </div>
-       <div class="victim1">
-         <img src="../../assets/img/faxian5.jpg" alt="">
-         <h3>中国11-13岁青少年膳食营养素参考摄入量</h3>
-         <p>钙铁锌维生素</p>
-         <h5><span><i></i>百洋健康</span><span><i></i><i></i></span></h5>
-       </div> -->
+  <div class="container">
+    <div class="c_left">
+      <div class="victim1" v-for="(tab,idx) of goodsLeft" :key="idx" @click="changTab(tab.id)" v-if="loading">
+        <img src="../../static/img/pin9.jpg" alt="">
+        <h3>{{goodsLeft[idx].name}}</h3>
+        <p>{{goodsLeft[idx].branch}}</p>
+        <h5>
+          <span>
+            <i></i>百洋健康</span>
+          <span>
+            <i></i>
+            <i></i>
+          </span>
+        </h5>
+      </div>
     </div>
     <div class="c_right">
       <div class="victim1" v-if="loading" v-for="(tab,idx) of goodsRight" :key="idx" @click="changTab(tab.id)">
-         <img src="../../static/img/pin1.jpg" alt="">
-         <h3>{{goodsLeft[idx].name }}</h3>
-         <p>{{goodsRight[idx].branch}}</p>
-         <h5><span><i></i>百洋健康</span><span><i></i><i></i></span></h5>
-       </div>
-       <!-- <div class="victim1">
+        <img src="../../static/img/pin1.jpg" alt="">
+        <h3>{{goodsLeft[idx].name }}</h3>
+        <p>{{goodsRight[idx].branch}}</p>
+        <h5>
+          <span>
+            <i></i>百洋健康</span>
+          <span>
+            <i></i>
+            <i></i>
+          </span>
+        </h5>
+      </div>
+      <!-- <div class="victim1">
          <img src="../../assets/img/faxian3.jpg" alt="">
          <h3>中国11-13岁青少年膳食营养素参考摄入量</h3>
          <p>钙铁锌维生素</p>

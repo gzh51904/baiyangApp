@@ -55,13 +55,10 @@ Router.use('/reg',regRouter);
 Router.use('/login',loginRouter);
 Router.use('/upload',uploadRouter);
 Router.use('/chepho',chephoRouter);
-<<<<<<< HEAD
 Router.use('/cart',cartRouter);
 Router.use('/find',findRouter);
 Router.use('/special',specialRouter);
-=======
 Router.use('/log',logRouter);
->>>>>>> 4e054d22c7c357c50c2103cb08e7076052dd65c5
 
 // 校验token
 Router.use('/verify',(req,res)=>{

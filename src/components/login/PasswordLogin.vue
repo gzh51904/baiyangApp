@@ -80,7 +80,7 @@ export default {
         
       ;
     },
-    jumpPage(url) {
+    jumpPage() {
       this.$router.push('/login');
     },
     randomNum(min, max) {

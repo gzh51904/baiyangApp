@@ -39,16 +39,7 @@ export default {
   },
 
   methods: {
-    changeImgUrl(arr) {
-      for (var i = 0; i < arr.length; i++) {
-        var url = arr[i].goods_img;
-        arr[i].goods_img = require("../assets/img/" + url);
-        console.log(arr[i].goods_img);
-        return arr;
-      }
-      
-    },
-
+    
     async getDatas() {
       // console.log();
 
@@ -71,8 +62,7 @@ export default {
       var sUserName = localStorage.getItem("username"); //获取用户名
       var sCart = localStorage.getItem("cart"); //获取cart对象的内容
 
-      var aCart = [];
-      var arr = [];
+      // var arr = [];
 
       /************* 2.1用户未登录 本地存储无数据=> isLogin=false isNull=true *****************/
       if (!sUserName && !sCart) {
@@ -90,10 +80,13 @@ export default {
         this.isLogin = false;
         this.isNull = false;
         // 渲染本地存储数据
-
-        // this.aGoods = JSON.parse(sCart);
-        this.aGoods = this.changeImgUrl(JSON.parse(sCart));
-        console.log(this.aGoods);
+        console.log(sCart);
+        var arr = JSON.parse(sCart);
+        for (var i = 0; i < arr.length; i++) {
+          var name = arr[i].goods_img;
+          arr[i].goods_img = require("../assets/img/" + name);
+        }
+        this.aGoods = arr;
         return;
       }
 
@@ -104,7 +97,6 @@ export default {
           "http://127.0.0.1:1904/cart/" + sUserName //获取数据库数据
         );
         var aSqlData1 = oSqlData1.data.data;
-        // console.log(aSqlData1);
 
         /********2.3.1数据库无数据=> isNull=true*********/
         if (aSqlData1.length <= 0) {
@@ -116,8 +108,12 @@ export default {
         if (aSqlData1.length > 0) {
           console.log("用户已登录 本地存储无数据 数据库有数据");
           this.isNull = false;
-          this.aGoods = this.changeImgUrl(aSqlData1);
-          console.log(this.aGoods);
+          // var arr =
+          for (var i = 0; i < aSqlData1.length; i++) {
+            var name = aSqlData1[i].goods_img;
+            aSqlData1[i].goods_img = require("../assets/img/" + name);
+          }
+          this.aGoods = aSqlData1;
           return;
         }
       }
@@ -144,13 +140,17 @@ export default {
         );
         var aSqlData2 = oSqlData2.data.data;
         // 渲染页面
-        this.aGoods = this.changeImgUrl(aSqlData2);
+        for (var i = 0; i < aSqlData2.length; i++) {
+          var name = aSqlData2[i].goods_img;
+          aSqlData2[i].goods_img = require("../assets/img/" + name);
+        }
+        this.aGoods = aSqlData2;
+        // this.aGoods = this.changeImgUrl(aSqlData2);
         localStorage.removeItem("cart");
       }
     },
 
     edit() {
-      // console.log(123);
       this.isEdit = !this.isEdit;
     },
     async reduce(index) {
@@ -170,7 +170,10 @@ export default {
           );
         } else {
           // 用户未登录 修改本地存储
-          localStorage.setItem("cart", JSON.stringify(this.aGoods));
+          var sCart = localStorage.getItem("cart");
+          var aCart = JSON.parse(sCart);
+          aCart[index].num = iNum;
+          localStorage.setItem("cart", JSON.stringify(aCart));
         }
       }
     },
@@ -202,7 +205,11 @@ export default {
           );
         } else {
           // 用户未登录 修改本地存储
-          localStorage.setItem("cart", JSON.stringify(this.aGoods));
+          // 用户未登录 修改本地存储
+          var sCart = localStorage.getItem("cart");
+          var aCart = JSON.parse(sCart);
+          aCart[index].num = iNum;
+          localStorage.setItem("cart", JSON.stringify(aCart));
         }
       }
     },
@@ -252,7 +259,12 @@ export default {
         );
       } else {
         // 用户未登录 修改本地存储
-        localStorage.setItem("cart", JSON.stringify(this.aGoods));
+        // localStorage.setItem("cart", JSON.stringify(this.aGoods));
+        // 用户未登录 修改本地存储
+        var sCart = localStorage.getItem("cart");
+        var aCart = JSON.parse(sCart);
+        aCart[index].num = iCurNum;
+        localStorage.setItem("cart", JSON.stringify(aCart));
       }
     },
 
@@ -263,29 +275,23 @@ export default {
       }
     },
     selectAll2(arr) {
-      // console.log("1",arr);
       this.aSelectResult = arr;
     },
     selectOne(arr) {
-      // console.log("2",arr);
+    
       this.aSelectResult = arr;
     },
     async remove() {
-      console.log("删除");
+      // console.log("删除");
       var sUserName = localStorage.getItem("username");
-      // console.log(this.aSelectResult.length);
-      // if (this.aSelectResult.length == 0) {
-      //   return;
-      // }
-      // return;
-      // if(this.aSelectResult)
+
       // 用户登录
       if (sUserName) {
-        console.log(sUserName);
+        // console.log(sUserName);
         var arr = [];
 
         for (var i = 0; i < this.aSelectResult.length; i++) {
-          console.log("denglu:", this.aSelectResult);
+          // console.log("denglu:", this.aSelectResult);
           if (this.aSelectResult[i]) {
             // 去数据库删除被选择的商品
             var result = await this.$axios.delete(
@@ -304,18 +310,21 @@ export default {
         var arr = [];
         for (var i = 0; i < this.aSelectResult.length; i++) {
           if (!this.aSelectResult[i]) {
-            // this.aGoods.splice(i, 1);
-            // 将没有被删除的数据存储到数组
             arr.push(this.aGoods[i]);
-            // localStorage.setItem("cart",JSON.stringify(this.aGoods));
-            // if(this.aGoods.length == 0){
-            //   localStorage.removeItem("cart");
-            // }
           }
         }
         this.aGoods = arr;
         if (arr.length > 0) {
-          localStorage.setItem("cart", JSON.stringify(arr));
+          // iCurNum;
+          var sCart = localStorage.getItem("cart");
+          var aCart = JSON.parse(sCart);
+          var arr2 = [];
+          for(var i = 0; i <this.aSelectResult.length; i++){
+            if(!this.aSelectResult[i]){
+              arr2.push(aCart[i]);
+            }
+          }
+          localStorage.setItem("cart", JSON.stringify(arr2));
         } else {
           localStorage.removeItem("cart");
         }
