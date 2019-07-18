@@ -57,19 +57,19 @@ export default {
   methods: {
     changTab: function(id) {
       this.$router.push({ name: "detail", query: { goods_id: id } });
-      console.log(id);
+      // console.log(id);
     }
   },
   async created() {
     const datas = await this.$axios.get("http://127.0.0.1:1904/find/练身材");
-    console.log(datas.data.data);
+    // console.log(datas.data.data);
     this.loading = true;
     this.goodsLeft = datas.data.data.slice(0, 50);
     this.goodsRight = datas.data.data.slice(50, -1);
     this.goodsImgLeft = this.goodsLeft.map(function(item) {
       return item.img_url.split(";")[0];
     });
-    console.log(this.goodsLeft);
+    // console.log(this.goodsLeft);
   }
 };
 </script>

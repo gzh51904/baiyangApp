@@ -1,18 +1,27 @@
 <template>
   <header class="member_set">
-    <p class="set_btn">
-      <i class="iconfont icon-setting" v-on:click="tianzhuan()"></i>
+    <p class="set_btn" @click="jumpToSetPage()">
+      <i class="iconfont icon-setting"></i>
     </p>
   </header>
 </template>
 <script>
 export default {
-  data() {
-    return {};
-  },
   methods: {
-    tianzhuan: function() {
-      this.$router.push({ name: "setting" });
+    jumpToSetPage() {
+      var sUserName = localStorage.getItem("username");
+      //
+      if (sUserName) {
+        //用户已经登录
+        this.$router.push({
+          path: "/member/setting"
+        });
+      } else {
+        // 用户未登录
+        this.$router.push({
+          path: "/login"
+        });
+      }
     }
   }
 };

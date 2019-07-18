@@ -20,7 +20,7 @@
             <li class="list_item">
                 <a href="javascript:;">
                     <div class="icon icon_qianbao">
-                        <i class="iconfont icon-wallet"></i>
+                        <i class="iconfont icon-shouhuodizhi"></i>
                     </div>
                     <p>我的钱包</p>
                 </a>
@@ -28,7 +28,7 @@
             <li class="list_item">
                 <a href="javascript:;">
                     <div class="icon icon_fuwu">
-                        <i class="iconfont icon-shouhoufuwu"></i>
+                        <i class="iconfont icon-shouhuodizhi"></i>
                     </div>
                     <p>售后服务</p>
                 </a>

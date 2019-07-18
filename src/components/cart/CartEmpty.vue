@@ -1,12 +1,20 @@
 <template>
     <div class="cart_is_empty">
         <p class="cart_status_prompt">购物车是空的，您可以</p>
-        <a href="javascropt:;" class="go_shopping_btn">去逛逛</a>
+        <a href="javascropt:;" class="go_shopping_btn" @click="jumpToHomePage()">去逛逛</a>
     </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods:{
+    jumpToHomePage(){
+      this.$router.push({
+        path:'/'
+      });
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

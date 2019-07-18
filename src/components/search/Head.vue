@@ -42,8 +42,12 @@ export default {
   methods: {
     search() {
       bus.$emit("msg", this.searchVal);
-      console.log("传输值");
+      console.log("传输值",this.searchVal);
+      this.$emit("pass", this.searchVal);
     }
+    
+  },
+  mounted() {
   }
 };
 </script>

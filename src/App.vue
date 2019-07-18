@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <app-foot></app-foot>
+    <app-foot v-show="footshow"></app-foot>
   </div>
 </template>
 <script>
@@ -12,8 +12,14 @@ export default {
   components: {
     "app-foot": Foot
   },
+  computed:{
+    footshow(){
+      return this.$store.state.common.footshow;
+    }
+  },
   created() {
     rem();
+    
   }
 };
 </script>

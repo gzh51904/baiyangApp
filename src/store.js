@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    foot_show:true,
+    // foot_show:true,
 
   },
   mutations: {

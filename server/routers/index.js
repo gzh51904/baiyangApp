@@ -5,9 +5,13 @@ const Router = express.Router();
 const goodsRouter = require('./goods');
 const regRouter = require('./reg');
 const loginRouter = require('./login');
+const logRouter = require('./log');
 const uploadRouter = require('./upload');
 const chephoRouter = require('./chepho');
 const {formatData,token:{verify}} = require('../utils');
+const cartRouter = require('./cart');
+const findRouter = require('./find');
+const specialRouter = require('./special');
 
 
 Router.use(express.urlencoded({extended:false}),express.json());
@@ -30,7 +34,7 @@ Router.use((req,res,next)=>{
     // if(has){
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
-        res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+        res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,PATCH,OPTIONS");
     // }
 
     // 跨域请求CORS中的预请求
@@ -51,6 +55,13 @@ Router.use('/reg',regRouter);
 Router.use('/login',loginRouter);
 Router.use('/upload',uploadRouter);
 Router.use('/chepho',chephoRouter);
+<<<<<<< HEAD
+Router.use('/cart',cartRouter);
+Router.use('/find',findRouter);
+Router.use('/special',specialRouter);
+=======
+Router.use('/log',logRouter);
+>>>>>>> 4e054d22c7c357c50c2103cb08e7076052dd65c5
 
 // 校验token
 Router.use('/verify',(req,res)=>{

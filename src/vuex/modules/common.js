@@ -1,10 +1,14 @@
 export default {
-    state:{
-        menushow:true
+    state: {
+        menushow: true,
+        footshow: true,
     },
-    mutations:{
+    mutations: {
         displayMenu(state, isShow) {
             state.menushow = isShow;
+        },
+        displayFoot(state, isShow) {
+            state.footshow = isShow;
         }
     }
 }

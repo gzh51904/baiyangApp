@@ -4,41 +4,81 @@
             <h2>健康大牌</h2>
         </div>
         <ul class="goods_list">
-            <li class="list_item">
+            <li class="list_item" v-for="item in special" :key="item.branch_id" @click="jumpToSpecialPage(item.branch_id)">
                 <a href="javascript:;">
-                    <img src="https://shopncstaticimage.baiyangwang.com/mobile/special/s0/s0_06143348094686202.png!hthumb" alt="">
-                </a>
-            </li>
-            <li class="list_item">
-                <a href="javascript:;">
-                    <img src="https://shopncstaticimage.baiyangwang.com/mobile/special/s0/s0_06143348094686202.png!hthumb" alt="">
-                </a>
-            </li>
-            <li class="list_item">
-                <a href="javascript:;">
-                    <img src="https://shopncstaticimage.baiyangwang.com/mobile/special/s0/s0_06143348094686202.png!hthumb" alt="">
-                </a>
-            </li>
-            <li class="list_item">
-                <a href="javascript:;">
-                    <img src="https://shopncstaticimage.baiyangwang.com/mobile/special/s0/s0_06143348094686202.png!hthumb" alt="">
-                </a>
-            </li>
-            <li class="list_item">
-                <a href="javascript:;">
-                    <img src="https://shopncstaticimage.baiyangwang.com/mobile/special/s0/s0_06143348094686202.png!hthumb" alt="">
-                </a>
-            </li>
-            <li class="list_item">
-                <a href="javascript:;">
-                    <img src="https://shopncstaticimage.baiyangwang.com/mobile/special/s0/s0_06143348094686202.png!hthumb" alt="">
+                    <img :src="item.img_url" alt="#">
                 </a>
             </li>
         </ul>
     </section>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      special: [
+        {
+          branch_id: 6,
+          img_url: require("../../assets/img/special6.png"),
+          name: "艾思诺娜"
+        },
+        {
+          branch_id: 7,
+          img_url: require("../../assets/img/special7.png"),
+          name: "珂润"
+        },
+        {
+          branch_idtype_id: 8,
+          img_url: require("../../assets/img/special8.png"),
+          name: "宠爱之名"
+        },
+        {
+          branch_id: 9,
+          img_url: require("../../assets/img/special9.png"),
+          name: "Schiff"
+        },
+        {
+          branch_id: 10,
+          img_url: require("../../assets/img/special10.png"),
+          name: "纽特舒玛"
+        },
+        {
+          branch_id: 11,
+          img_url: require("../../assets/img/special11.png"),
+          name: "蜜浓"
+        },
+        {
+          branch_id: 12,
+          img_url: require("../../assets/img/special12.png"),
+          name: "咖思美"
+        },
+        {
+          branch_id: 13,
+          img_url: require("../../assets/img/special13.png"),
+          name: "来益"
+        },
+        {
+          branch_id: 14,
+          img_url: require("../../assets/img/special14.png"),
+          name: "迪巧"
+        }
+      ]
+    };
+  },
+  methods: {
+    jumpToSpecialPage(branch_id) {
+      this.$router.push({
+        path: "/special",
+        query: {
+          branch_id: branch_id
+        }
+      });
+    }
+  },
+  created() {
+    // this.
+  }
+};
 </script>
 <style lang="scss" scoped>
 .home_health {

@@ -1,69 +1,27 @@
 <template>
   <div id="faxian">
-  <div class="faxian">
-    <div class="box">
-    <a href="javascript:;" @click="changTab(0)" v-bind:class="{liang:active===0}">推荐</a>
-    <a href="javascript:;" @click="changTab(1)">美容</a>
-    <a href="javascript:;" @click="changTab(2)">母婴</a>
-    <a href="javascript:;" @click="changTab(3)">健康</a>
-    <a href="javascript:;" @click="changTab(4)">医药</a>
-    <a href="javascript:;" @click="changTab(5)">每日科普</a>
-    <a href="javascript:;" @click="changTab(6)">有偿资讯</a>
-    <a href="javascript:;" @click="changTab(7)">孕期营养攻略</a>
+    <div class="faxian">
+      <div class="box">
+        <a href="javascript:;" @click="changTab(0)" v-bind:class="{liang:active===0}">推荐</a>
+        <a href="javascript:;" @click="changTab(1)">美容</a>
+        <a href="javascript:;" @click="changTab(2)">母婴</a>
+        <a href="javascript:;" @click="changTab(3)">健康</a>
+        <a href="javascript:;" @click="changTab(4)">医药</a>
+        <a href="javascript:;" @click="changTab(5)">每日科普</a>
+        <a href="javascript:;" @click="changTab(6)">有偿资讯</a>
+        <a href="javascript:;" @click="changTab(7)">孕期营养攻略</a>
+      </div>
     </div>
-  </div>
-  <!-- <div class="container" v-for="(tab,idx) of tabs" :key="idx"  v-show="active===idx">
-    <div class="c_left">
-       <div class="victim1">
-         <img src="../assets/img/faxian1.jpg" alt="">
-         <h3>中国11-13岁青少年膳食营养素参考摄入量</h3>
-         <p>钙铁锌维生素</p>
-         <h5><span><i></i>百洋健康</span><span><i></i><i></i></span></h5>
-       </div>
-       <div class="victim1">
-         <img src="../assets/img/faxian4.jpg" alt="">
-         <h3>中国11-13岁青少年膳食营养素参考摄入量</h3>
-         <p>钙铁锌维生素</p>
-         <h5><span><i></i>{{tabs[0].name}}</span><span><i></i><i></i></span></h5>
-       </div>
-       <div class="victim1">
-         <img src="../assets/img/faxian5.jpg" alt="">
-         <h3>中国11-13岁青少年膳食营养素参考摄入量</h3>
-         <p>钙铁锌维生素</p>
-         <h5><span><i></i>百洋健康</span><span><i></i><i></i></span></h5>
-       </div>
+    <div class="hao">
+      <tui-jian v-show="active===0"></tui-jian>
+      <mei-rong v-show="active===1"></mei-rong>
+      <mu-ying v-show="active===2"></mu-ying>
+      <jian-kang v-show="active===3"></jian-kang>
+      <yi-yao v-show="active===4"></yi-yao>
+      <ke-pu v-show="active===5"></ke-pu>
+      <zi-xun v-show="active===6"></zi-xun>
+      <yu-qi v-show="active===7"></yu-qi>
     </div>
-    <div class="c_right">
-      <div class="victim1">
-         <img src="../assets/img/faxian2.png" alt="">
-         <h3>中国11-13岁青少年膳食营养素参考摄入量</h3>
-         <p>钙铁锌维生素</p>
-         <h5><span><i></i>百洋健康</span><span><i></i><i></i></span></h5>
-       </div>
-       <div class="victim1">
-         <img src="../assets/img/faxian3.jpg" alt="">
-         <h3>中国11-13岁青少年膳食营养素参考摄入量</h3>
-         <p>钙铁锌维生素</p>
-         <h5><span><i></i>百洋健康</span><span><i></i><i></i></span></h5>
-       </div>
-       <div class="victim1">
-         <img src="../assets/img/faxian6.jpg" alt="">
-         <h3>中国11-13岁青少年膳食营养素参考摄入量</h3>
-         <p>钙铁锌维生素</p>
-         <h5><span><i></i>百洋健康</span><span><i></i><i></i></span></h5>
-       </div>
-    </div>
-  </div> -->
-  <div class="hao">
-  <tui-jian v-show="active===0"></tui-jian>
-  <mei-rong v-show="active===1"></mei-rong>
-  <mu-ying v-show="active===2"></mu-ying>
-  <jian-kang v-show="active===3"></jian-kang>
-  <yi-yao v-show="active===4"></yi-yao>
-  <ke-pu v-show="active===5"></ke-pu>
-  <zi-xun v-show="active===6"></zi-xun>
-  <yu-qi v-show="active===7"></yu-qi>
-  </div>
   </div>
 </template>
 <script>

@@ -1,103 +1,96 @@
 <template>
-       <div class="cart_goods">
-        <ul class="goods_list">
-            <li class="list_item" v-for="item in datalist" :key="item.id">
-                <div class="title">
-                    <input type="checkbox" checked class="check_btn">
-                    <i class="iconfont icon-dianpu shop_icon"></i>
-                    <a href="javascript:;" class="shop_name" >{{ item.id}} &nbsp;&gt;</a>
-                </div>
-                <div class="goods">
-                    <input type="checkbox" checked class="check_btn">
-                    <div class="goods_pic">
-                        <a href="javascript:;">
-                            <img src="{img_url}" alt="#">
-                        </a>
-                    </div>
-                    <div class="goods_infos">
-                        <h2 class="goods_name">
-                            <a href="javascript:;">
-                                {{item.name}}
-                            </a>
-                        </h2>
-                        <div class="goods_price_num">
-                            <p class="goods_price" prop="price">￥{{item.cur_price}} </p>
-                            <div class="goods_num">
-                                
-                                <template>
-                                      <el-input-number size="mini" v-model="qty" ></el-input-number>
-                                </template>
-                               
-                                
-                            </div>
-                        </div>
-                    </div>
+  <div class="cart_goods">
+    <ul class="goods_list">
+      <li class="list_item" v-for="(item,index) in aGoods" :key="item.goods_id">
+        <div class="title">
+          <input type="checkbox" class="check_all" @click="selectAllGoods(index)" ref="selectAll" :checked="isSelectAll">
+          <i class="iconfont icon-dianpu shop_icon"></i>
+          <a href="javascript:;" class="shop_name">百洋健康官方自营店&nbsp;&gt;</a>
+        </div>
+        <div class="goods">
+          <input type="checkbox" class="check_one" ref="selectOne" :checked="isSelectAll" @click="selectOneGoods(index)">
+          <div class="goods_pic">
+            <a href="javascript:;">
+              <img :src="item.goods_img" alt="#">
+            </a>
+          </div>
+          <div class="goods_infos">
+            <h2 class="goods_name">
+              <a href="javascript:;">
+                {{item.goods_name}}
+              </a>
+            </h2>
+            <div class="goods_price_num">
+              <p class="goods_price">￥{{item.price}}</p>
+              <div class="goods_num">
+                <a href="javascript:;" class="reduce_btn" @click="reduceNum(index)">-</a>
+                <input type="number" class="num" :value="item.num" @blur="changeNum(index)" ref="inputNum">
+                <a href="javascript:;" class="add_btn" @click="addNum(index)">+</a>
+              </div>
+            </div>
+          </div>
 
-                </div>
-            </li>
-            
-        </ul>
-     </div>
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
-
-
-
-
 <script>
-
-import Vue from 'vue';
-import {mapState,mapMutations} from 'vuex';
-import {InputNumber} from 'element-ui';
-
-Vue.use(InputNumber)
-
-
-
-
 export default {
-  data(){
-    return{
-      datalist:[],
-      qty:1,
+  props: [
+    "aGoods",
+    "reduce",
+    "add",
+    "inputNum",
+    "isSelectAll",
+    "selectAll2",
+    "selectOne"
+  ],
+  methods: {
+    // 深拷贝
+    extend(obj1, obj2) {
+      for (var key in obj2) {
+        obj1[key] = obj2[key];
+      }
+    },
+    reduceNum(index) {
+      this.reduce(index);
+    },
+    addNum(index) {
+      this.add(index);
+    },
+    changeNum(index) {
+      var iNum = this.$refs.inputNum[index].value;
+      this.inputNum(index, iNum);
+    },
+    selectAllGoods(index) {
+      this.$refs.selectOne[index].checked = this.$refs.selectAll[index].checked;
+      var arr = [];
+      for (var i = 0; i < this.$refs.selectOne.length; i++) {
+        arr.push(this.$refs.selectOne[i].checked);
+      }
+      this.selectAll2(arr);
+    },
+    selectOneGoods(index) {
+      var arr2 = [];
+      for (var i = 0; i < this.$refs.selectOne.length; i++) {
+        arr2.push(this.$refs.selectOne[i].checked);
+      }
+      this.selectOne(arr2);
     }
-  },
-  computed: {
-   
-    totalPrice(){
-        return this.$store.state.cart.goodslist.reduce((pre,item)=>{
-            return pre + item.price*item.qty
-        },0)
-    }
-  },
-  methods:{
-      // changeQty(id, qty ) {
-        
-      //      let  data  = await this.$axios.get("http://localhost:1904/goods",{body:{
-             
-      //           num:50
-      //      }});
-      //   },
-  },
-  async created() {
-    console.log("Cart:", this);
-   
-    let  data  = await this.$axios.get("http://localhost:1904/goods/1");
-           
-    this.datalist = data.data.data;
-     let qty = data.data.data[0].num
-    this.qty = qty;
-    // console.log(this.datalist)
-    console.log("data:", data);
 
+    // // 全选
+    // async selectAll(index) {
+    //   this.$refs.selectOne[index].checked = this.$refs.selectAll[index].checked;
 
-    
-    console.log("qty:", qty);
-    
-  }
+    // },
+    // async selectOne(index) {
+
+    // }
+  },
+  created() {}
 };
 </script>
-
-
 
 <style lang="scss" scoped>
 .cart_goods {
@@ -122,7 +115,15 @@ export default {
         width: 100%;
         height: 1.2rem;
         border-bottom: 0.013333rem solid #ccc;
-        .check_btn {
+        .check_all {
+          margin-right: 0.266667rem;
+          display: block;
+          width: 0.4rem;
+          height: 0.4rem;
+          border-radius: 50%;
+          background: #ff0066;
+        }
+        .check_one {
           margin-right: 0.266667rem;
           display: block;
           width: 0.4rem;

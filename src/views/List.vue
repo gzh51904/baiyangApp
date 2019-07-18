@@ -1,8 +1,8 @@
 <template>
   <div id="list">
-      <Head></Head>
-      <Nav></Nav>
-      <Main></Main>
+    <Head></Head>
+    <Nav></Nav>
+    <Main></Main>
   </div>
 </template>
 <script>
@@ -11,15 +11,15 @@ import Nav from "../components/list/Nav.vue";
 import Main from "../components/list/Main.vue";
 
 export default {
-   components: {
-      Head,
-      Nav,
-      Main
+  components: {
+    Head,
+    Nav,
+    Main
   }
 };
 </script>
 <style lang="scss" scoped>
-#search{
+#search {
   position: relative;
 }
 </style>

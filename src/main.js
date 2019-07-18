@@ -1,11 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
-
 import router from './router';
 import axios from 'axios';
-import Mint from 'mint-ui'
+import Mint from 'mint-ui';
 import store from './vuex';
-
+Vue.prototype.$axios = axios;
 
 // 请求拦截：发送token
 axios.interceptors.request.use(config=>{

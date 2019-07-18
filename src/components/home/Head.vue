@@ -1,19 +1,35 @@
 <template>
-    <header id="app_head">
-        <div class="head_inner">
-            <div class="search">
-                <div class="search_pic">
-                    <i class="iconfont icon-search"></i>
-                </div>
-                <p class="input">儿童钙铁</p>
-                <!-- <input type="text"> -->
-            </div>
-            <div class="user">
-                <i class="iconfont icon-member"></i>
-            </div>
+  <header id="app_head">
+    <div class="head_inner">
+      <div class="search" @click="jumpToSearchPage()">
+        <div class="search_pic">
+          <i class="iconfont icon-search"></i>
         </div>
-    </header>
+        <p class="input">儿童钙铁</p>
+      </div>
+      <div class="user" @click="jumpToMemberPage()">
+        <i class="iconfont icon-member"></i>
+      </div>
+    </div>
+  </header>
 </template>
+<script>
+export default {
+  methods: {
+    jumpToSearchPage() {
+      this.$router.push({
+        path: "/search"
+      });
+    },
+    jumpToMemberPage() {
+      this.$router.push({
+        path: "/member"
+      });
+    }
+  }
+};
+</script>
+
 <style lang="scss" scoped>
 #app_head {
   position: absolute;
@@ -47,22 +63,22 @@
         border-top-left-radius: 0.306667rem;
         border-bottom-left-radius: 0.306667rem;
         text-align: center;
-        line-height: .8rem;
-        .iconfont{
-            font-size: .466667rem;
-            color: gray;
+        line-height: 0.8rem;
+        .iconfont {
+          font-size: 0.466667rem;
+          color: gray;
         }
       }
-     
+
       .input {
         flex: 1;
         height: 100%;
         border-top-right-radius: 0.306667rem;
         border-bottom-right-radius: 0.306667rem;
         border: none;
-        font-size: .426667rem;
+        font-size: 0.426667rem;
         color: gray;
-        line-height: .8rem;
+        line-height: 0.8rem;
       }
     }
     .user {

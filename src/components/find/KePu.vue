@@ -57,12 +57,12 @@ export default {
   methods: {
     changTab: function(id) {
       this.$router.push({ name: "detail", query: { goods_id: id } });
-      console.log(id);
+      // console.log(id);
     }
   },
   async created() {
     const datas = await this.$axios.get("http://127.0.0.1:1904/find/小百科");
-    console.log(datas.data.data);
+    // console.log(datas.data.data);
     this.loading = true;
     this.goodsLeft = datas.data.data.slice(0, 80);
     this.goodsRight = datas.data.data.slice(80, -1);
@@ -70,7 +70,7 @@ export default {
       return item.img_url.split(";")[0];
     });
 
-    console.log(this.goodsImgLeft);
+    // console.log(this.goodsImgLeft);
   }
 };
 </script>

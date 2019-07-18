@@ -1,94 +1,88 @@
 <template>
-    <div class="phone_login">
-        <form action="" class="login_form">
-            <ul class="login_infos">
-                <li class="infos_item phone">
-                    <input type="text" placeholder="请输入手机号" v-model="phone" @blur="checkpho()">
-                </li>
-                <li class="infos_item sms_ver_code">
-                    <input type="text" placeholder="请输入短信验证码!" v-model="pwd">
-                    <a href="javascript:;" class="get_sms_ver_code_btn">获取验证码</a>
-                </li>
-            </ul>
-            <a href="javascript:;" class="login_btn" @click="submitForm('pho')">注册</a>
-            <div class="login_ways">
-                <a href="javascript:;" @click="jumpPage('/login_pwd')">使用密码登录</a>
-            </div>
-        </form>
-    </div>
+  <div class="phone_login">
+    <form action="" class="login_form">
+      <ul class="login_infos">
+        <li class="infos_item phone">
+          <input type="text" placeholder="请输入手机号" v-model="phone" @blur="checkpho()">
+        </li>
+        <li class="infos_item sms_ver_code">
+          <input type="text" placeholder="请输入短信验证码!" v-model="pwd">
+          <a href="javascript:;" class="get_sms_ver_code_btn">获取验证码</a>
+        </li>
+      </ul>
+      <a href="javascript:;" class="login_btn" @click="submitForm('pho')">注册</a>
+      <div class="login_ways">
+        <a href="javascript:;" @click="jumpPage('/login_pwd')">使用密码登录</a>
+      </div>
+    </form>
+  </div>
 </template>
 <script>
-
-import {mapState,mapMutations} from 'vuex';
+// import { mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
-  data(){
-    return{
-      pwd:'',
-      phone:''
-      
-    }
+  data() {
+    return {
+      pwd: "",
+      phone: ""
+    };
   },
 
-
-
-
   methods: {
-    checkpho(){
+    checkpho() {
       let phone = this.phone;
       let reg = this.reg;
-      console.log('reg:',reg)
-       if (phone.length < 6) {
+      console.log("reg:", reg);
+      if (phone.length < 6) {
         alert("手机号不能少于6位");
-      }else{
-          let chp = this.$axios.get("http://localhost:1904/chepho",{
-                params:{
-                    phone,
-                    }
-                }).then((res)=>{
-                let {data,headers} = res
-                console.log(res);
-                if(data.code == 250){
-                    alert('用户已被注册')
-                    let phone =''
-                    
-                }else if(data.code === 1000){
-                  alert('可以注册')
+      } else {
+        let chp = this.$axios
+          .get("http://localhost:1904/chepho", {
+            params: {
+              phone
+            }
+          })
+          .then(res => {
+            let { data, headers } = res;
+            console.log(res);
+            if (data.code == 250) {
+              alert("用户已被注册");
+              let phone = "";
+            } else if (data.code === 1000) {
+              alert("可以注册");
               // this.$router.push("/")
-                  this.$store.commit('reg',1)
-                }
-            })
+              this.$store.commit("reg", 1);
+            }
+          });
       }
-      
     },
-   
-       
+
     submitForm(formName) {
-        
-        console.log('r:',this.$store.state.cart.item)
-        if(this.$store.state.cart.item == "1"){
-          console.log(777)
-     
+      console.log("r:", this.$store.state.cart.item);
+      if (this.$store.state.cart.item == "1") {
+        console.log(777);
+
         // if (reg == 1) {
-            // 验证通过，发请求到后端，保存用户名到数据库
-            let phone = this.phone;
-            let pwd = this.pwd
-            this.$axios.post("http://localhost:1904/chepho",{
-                    pwd,
-                    phone,
-                    
-            }).then((res)=>{
-              if(res){
-                alert('注册成功')
-                this.$router.push('/login_pwd')
-              }
-            })
-        }else{
-          alert('注册失败')
-        }
-         
+        // 验证通过，发请求到后端，保存用户名到数据库
+        let phone = this.phone;
+        let pwd = this.pwd;
+        this.$axios
+          .post("http://localhost:1904/chepho", {
+            pwd,
+            phone
+          })
+          .then(res => {
+            if (res) {
+              alert("注册成功");
+              this.$router.push("/login_pwd");
+            }
+          });
+      } else {
+        alert("注册失败");
+      }
     },
     jumpPage(url) {
-      this.$router.push('/login_pwd');
+      this.$router.push("/login_pwd");
     }
   }
 };

@@ -1,18 +1,12 @@
 <template>
   <div class="nctouch-main-layout mt43" id="wx_ui">
     <div id="product_list" class="grid">
-      <ul class="goods-secrch-list" >
-        <li class="goods-item" goods_id="877780733" v-for="(item,index) in list" :key="index">
+      <ul class="goods-secrch-list">
+        <li class="goods-item" v-for="item in list" :key="item.id" @click="goto(item.id)">
           <span class="goods-pic">
             <!--商品标签-->
-
-            <a
-              onclick="_gio_act(877780733,'【艾思诺娜旗舰店】【紧致白皙】Excellula 艾思诺娜焕润乳霜 40g面霜 保湿滋润护肤', '润肤和精华','艾思诺娜旗舰店')"
-              href="product_detail.html?goods_id=877780733"
-            >
-              <img
-                :src="item.img"
-              />
+            <a href="#">
+              <img :src="item.img" />
             </a>
           </span>
           <dl class="goods-info">
@@ -30,9 +24,7 @@
               <div
                 style="font-size: 15px;word-break: break-all;text-overflow: ellipsis;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2; overflow: hidden;"
               >
-                <a
-                  onclick="_gio_act(877780733,'【艾思诺娜旗舰店】【紧致白皙】Excellula 艾思诺娜焕润乳霜 40g面霜 保湿滋润护肤', '润肤和精华','艾思诺娜旗舰店')"
-                  href="product_detail.html?goods_id=877780733"
+                <a @click="goto(item.id)"
                   style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;"
                 >{{item.name}}</a>
               </div>
@@ -42,10 +34,7 @@
               <span class="message-style1">自营</span>
             </dd>
             <dd class="goods-sale">
-              <a
-                onclick="_gio_act(877780733,'【艾思诺娜旗舰店】【紧致白皙】Excellula 艾思诺娜焕润乳霜 40g面霜 保湿滋润护肤', '润肤和精华','艾思诺娜旗舰店')"
-                href="product_detail.html?goods_id=877780733"
-              >
+              <a href="#" @click="goto(item.id)">
                 <span class="goods-price">
                   ￥
                   <em>{{item.price}}</em>
@@ -53,7 +42,6 @@
                 </span>
               </a>
             </dd>
-            
           </dl>
         </li>
         <li class="loading">
@@ -67,39 +55,57 @@
 </template>
 
 <script>
-import bus from '../../eventVue'
+import bus from "../../eventVue";
 export default {
-  data(){
-        return{
-            list:[
-              {img:"https://shopncstaticimage.baiyangwang.com/shop/store/goods/34/34_06105440716219934.jpg!gthumb",name:"【艾思诺娜旗舰店】【紧致白皙】Excellula 艾思诺娜焕润乳霜 40g面霜 保湿滋润护肤",price:"880.00"},
-              {img:"https://shopncstaticimage.baiyangwang.com/shop/store/goods/34/34_06105516566489961.jpg!gthumb",name:"【艾思诺娜旗舰店】【紧致白皙】Excellula 艾思诺娜焕润乳霜 40g面霜 保湿滋润护肤",price:"1770.88"},
-              {img:"https://shopncstaticimage.baiyangwang.com/shop/store/goods/34/34_06105516566489961.jpg!gthumb",name:"【艾思诺娜旗舰店】【紧致白皙】Excellula 艾思诺娜焕润乳霜 40g面霜 保湿滋润护肤",price:"70.88"},
-              {img:"https://shopncstaticimage.baiyangwang.com/shop/store/goods/34/34_06105436495709264.jpg!gthumb",name:"【艾思诺娜旗舰店】【紧致白皙】Excellula 艾思诺娜焕润乳霜 40g面霜 保湿滋润护肤",price:"270.88"},
-              ],
-            sort:true,
-        }
+  data() {
+    return {
+      list: [
+      ],
+      sort: true
+    };
   },
 
-  methods:{
-    
+  methods: {
+    goto(id) {
+      this.$router.push('detail?goods_list='+id);
+      // console.log("detail?goods_list=" + id);
+    }
   },
 
-  created(){
-    bus.$on('msg', (e) => {
-      this.sort=!this.sort;
-      console.log('接受值',e);
-      if(this.sort){
-          return this.list.sort((a,b)=>a.price-b.price);//升序
+  async created() {
+    bus.$on("msg", e => {
+      this.sort = !this.sort;
+      console.log("接受值", e);
+      if (this.sort) {
+        return this.list.sort((a, b) => a.price - b.price); //升序
+      } else {
+        return this.list.sort((a, b) => b.price - a.price); //降序
       }
-      else{
-         return this.list.sort((a,b)=>b.price-a.price);//降序
-      }
-    
-     
-     })
+    });
+
+    let goodlist = await this.$axios.get("http://localhost:1904/goods");
+    console.log(goodlist);
+    let lists = [];
+    for (var i = 0; i < goodlist.data.data.length; i++) {
+      // console.log(goodlist.data.data[i].name);
+      let imgurl = require("../../assets/img/" +
+        goodlist.data.data[i].img_url
+          .split(";")
+          .slice(0, 1)
+          .join(""));
+      // console.log(imgurl);
+      lists.push({
+        img: imgurl,
+        name: goodlist.data.data[i].name,
+        price: goodlist.data.data[i].ori_price,
+        id: goodlist.data.data[i].id
+      });
+    }
+    console.log(lists);
+    this.list = lists;
+    // this.goodsList = list;
   }
-}
+};
 </script>
 
 
@@ -109,8 +115,8 @@ export default {
   margin-top: 2.2rem;
   margin-bottom: 1.4rem;
   z-index: -1;
-  flex:1;
-//   margin-top: 4.3rem;
+  flex: 1;
+  //   margin-top: 4.3rem;
   .goods-secrch-list {
     font-size: 0;
     display: flex;
@@ -139,8 +145,8 @@ export default {
           width: 100%;
           height: 100%;
           img {
-                width: 100%;
-            }
+            width: 100%;
+          }
         }
       }
       .goods-info {
@@ -154,17 +160,17 @@ export default {
           position: absolute;
           top: 0.21rem;
           left: 0.24rem;
-           .country-img {
-                width: 0.55rem;
-                height: 0.55rem;
-                display: inline-block;
-                background-size: cover !important;
-                border-radius: 50%;
-                position: relative;
-                top: 0.06rem;
-            }
-          .gc-name{
-              display: none;
+          .country-img {
+            width: 0.55rem;
+            height: 0.55rem;
+            display: inline-block;
+            background-size: cover !important;
+            border-radius: 50%;
+            position: relative;
+            top: 0.06rem;
+          }
+          .gc-name {
+            display: none;
           }
         }
         .goods-name {
@@ -172,23 +178,23 @@ export default {
           min-height: 0.54rem;
           overflow: hidden;
           padding-bottom: 0.03rem;
-          a{
-                color: #333;
-                font-size: 0.36rem;
-                line-height: 0.54rem;
-                height: 1.08rem;
+          a {
+            color: #333;
+            font-size: 0.36rem;
+            line-height: 0.54rem;
+            height: 1.08rem;
           }
         }
         .goods-message {
           font-size: 0.27rem;
           height: 0.54rem;
           margin-top: 0.06rem;
-          span{
-                color: #ff0066;
-                padding: 0.01rem 0.1rem;
-                border-radius: 0.4rem;
-                border: 1px solid #ff0066;
-                line-height: 0.48rem;
+          span {
+            color: #ff0066;
+            padding: 0.01rem 0.1rem;
+            border-radius: 0.4rem;
+            border: 1px solid #ff0066;
+            line-height: 0.48rem;
           }
         }
         .goods-sale {
@@ -196,7 +202,7 @@ export default {
           height: 0.54rem;
           overflow: hidden;
           margin-top: 0.06rem;
-          a{
+          a {
             display: block;
             color: #333;
             font-size: 0.36rem;
@@ -205,28 +211,27 @@ export default {
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
             overflow: hidden;
-            .goods-price{
-                    color: #ff0066;
-                    font-size: 0.48rem;
-                    line-height: 0.57rem;
-                    display: block;
-                    float: left;
-                    font-weight: 600;
-                    em{
-                        font-size: 0.43rem;
-                        line-height: 0.54rem;
-                        vertical-align: top;
-                        display: inline-block;
-                        font-weight: bold;
-                    }
-                    .goods-price-pre {
-                        text-decoration: line-through;
-                        color: #999;
-                        font-size: 0.35rem;
-                        position: absolute;
-                        top:1;
-                        
-                    }
+            .goods-price {
+              color: #ff0066;
+              font-size: 0.48rem;
+              line-height: 0.57rem;
+              display: block;
+              float: left;
+              font-weight: 600;
+              em {
+                font-size: 0.43rem;
+                line-height: 0.54rem;
+                vertical-align: top;
+                display: inline-block;
+                font-weight: bold;
+              }
+              .goods-price-pre {
+                text-decoration: line-through;
+                color: #999;
+                font-size: 0.35rem;
+                position: absolute;
+                top: 1;
+              }
             }
           }
         }

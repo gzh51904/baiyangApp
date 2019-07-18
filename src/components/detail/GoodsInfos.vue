@@ -1,21 +1,33 @@
 <template>
-    <div class="goods_infos">
-        <!-- 价格 -->
-        <div class="goods_price">
-            <span class="current_price">￥2333</span>
-            <del class="origin_price">￥3333</del>
-        </div>
-        <!-- 名字 -->
-        <div class="goods_name">
-            <p>自营</p>
-            <h3>【逆龄黑科技】Quanis/克奥妮斯玻尿酸微针眼贴1300针（1对装）淡化黑眼圈眼袋细纹日本进口</h3>
-        </div>
-        <!-- 描述 -->
-        <p class="goods_des">【眼膜界的爱马仕】运用透皮给药技术，将1300根可溶微针直接注入肌肤真皮层，深层滋养肌肤，改善眼周问题，抚平岁月痕迹</p>
+  <div class="goods_infos">
+    <div class="goods_infos_inner" v-for="(item,index) in goodsInfos" :key="index">
+      <!-- 价格 -->
+      <div class="goods_price">
+        <span class="current_price">￥{{item.cur_price}}</span>
+        <del class="origin_price">￥{{item.ori_price}}</del>
+      </div>
+      <!-- 名字 -->
+      <div class="goods_name">
+        <p>自营</p>
+        <h3 v-text="item.name"></h3>
+      </div>
+      <!-- 描述 -->
+      <p class="goods_des" v-text="item.des"></p>
     </div>
+
+  </div>
 </template>
 <script>
-export default {};
+export default {
+  props: {
+    goodsInfos: {
+      type: Array
+    }
+  },
+  created(){
+    // console.log(this.goodsInfos);
+  }
+};
 </script>
 <style lang="scss" scoped>
 .goods_infos {

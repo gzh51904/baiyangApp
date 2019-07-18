@@ -4,7 +4,7 @@ const Router = express.Router();
 const {formatData} = require('../utils');
 const {mysql:query} = require('../db');
 const token = require('../utils/token.js');
-// console.log(555)
+console.log(555)
 Router.route('/')
 // 获取所有商品
 .get((req,res)=>{

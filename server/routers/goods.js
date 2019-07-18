@@ -23,7 +23,7 @@ Router.route('/')
 
 // 增加单个商品
 .post((req,res)=>{
-    console.log('params:',req.body);//{name,price,category,imgurl,...}
+    // console.log('params:',req.body);//{name,price,category,imgurl,...}
 
     let id = Date.now();
 
@@ -51,40 +51,67 @@ Router.route('/')
     
 });
 
+Router.route('/')
+// 修改商品
+.put(async (req,res)=>{//req.body=>{price,size,nmae}
+console.log(7578655)
+    let {id} = req.body;
+    console.log('req.query:',req.query,req.params,req.body)
+    // 循环传入的参数
+    let str = ''
+    for(let key in req.body){
+        str += key + '="' + req.body[key] + '",'
+    }
+    str = str.slice(0,-1);
+    
+    let sql = `update baiyang set ${str} where id=${id}`;
+    console.log(sql)
+    try{
+       
+        let data = await query(sql);
+        console.log(2222)
+        res.send("成功");
 
+    }catch(err){
+        res.send(formatData({msg:err,status:400}));
+        console.log(3333)
+    }
+})
 
 Router.route('/:id')
 
 // 修改单个商品
 // put
-.patch((req,res)=>{
-    // 请求体中的参数会被express格式化到req.body
-    console.log('params:',req.params);
-    console.log('body:',req.body);
-
-    let {id} = req.params;
+// .patch((req,res)=>{
     
-    let opt=''; // name="xxx", price="998"
-    for(let key in req.body){
-        opt += `${key}='${req.body[key]}',`
-    }
+//     // console.log(req.params,req.body,req.query)
+//     // 请求体中的参数会被express格式化到req.body
+//     console.log('params:',req.params);
+//     console.log('body:',req.body);
 
-    // 去除多余逗号
-    opt = opt.slice(0,-1)
-
-
-    let sql = `update baiyang set ${opt} where id=${id}`;
-
-    query(sql).then(data=>{
-        res.send(formatData({data}))
-    }).catch(err=>{
-        res.send(formatData({
-            data:err,
-            code:250
-        }))
-    })
+//     let {id} = req.params;
     
-})
+//     let opt=''; // name="xxx", price="998"
+//     for(let key in req.body){
+//         opt += `${key}='${req.body[key]}',`
+//     }
+
+//     // 去除多余逗号
+//     opt = opt.slice(0,-1)
+
+
+//     let sql = `update baiyang set ${opt} where id=${id}`;
+
+//     query(sql).then(data=>{
+//         res.send(formatData({data}))
+//     }).catch(err=>{
+//         res.send(formatData({
+//             data:err,
+//             code:250
+//         }))
+//     })
+    
+// })
 
 
 
@@ -93,7 +120,7 @@ Router.route('/:id')
     // 动态路由: 参数id会被express格式化到req.params
     
     let {id} = req.params;
-    console.log('params:',req.params)
+    // console.log('params:',req.params)
 
 
     // // 连接数据库
@@ -125,8 +152,9 @@ Router.route('/:id')
 // 删除单个商品
 .delete((req,res)=>{
     // 动态路由: 参数id会被express格式化到req.params
-    let {id} = req.params;
-    console.log('params:',req.params)
+    // console.log(req.params,req.body,req.query)
+    let {id} = req.query;
+    // console.log('params:',req.params)
 
 
     let sql = `delete from baiyang where id=${id}`;
@@ -144,7 +172,7 @@ Router.route('/:type'+'t')
 .get((req,res)=>{
    console.log(6666)
     let {type} = req.params;
-    console.log('params:',req.params)
+    // console.log('params:',req.params)
 
     query(`select * from baiyang where type=${type}`).then(function(data){
         // data: promise对象改成resolve状态时传回的参数
@@ -161,7 +189,7 @@ Router.route('b'+'/:branch')
 .get((req,res)=>{
     
     let {branch} = req.params;
-    console.log('params:',req.params)
+    // console.log('params:',req.params)
 
     query(`select * from baiyang where branch=${branch}`).then(function(data){
         // data: promise对象改成resolve状态时传回的参数
